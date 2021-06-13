@@ -38,7 +38,7 @@ window.env = {
   "NODE": "/usr/local/bin/node",
   "npm_package_name": "client",
   "XDG_MENU_PREFIX": "gnome-",
-  "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/a19b550d_547f_407d_818f_b32a77c9e08a",
+  "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/bc6dbf5a_927c_4d59_a72e_be5f912ae6c1",
   "XDG_RUNTIME_DIR": "/run/user/1000",
   "DISPLAY": ":0",
   "LANG": "en_IN",
@@ -67,5 +67,8 @@ window.env = {
   "npm_command": "start",
   "VTE_VERSION": "6003",
   "INIT_CWD": "/home/conitor/Documents/MERN/MERN-eCommerce/client",
-  "EDITOR": "vi"
+  "EDITOR": "vi",
+  "REACT_APP_ADMIN_URL": "http://localhost:5000/admin",
+  "REACT_APP_CST_URL": "https://api.countrystatecity.in/v1/countries",
+  "REACT_APP_API_SECRET": "WDgzbENmVmdzenBTT216NEFWZHRoaHlXdXNQRm1LVFZSc0tVNThhNA=="
 };

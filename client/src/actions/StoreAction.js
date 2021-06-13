@@ -1,15 +1,8 @@
 import {createApi} from '../api/StoreApi';
-export const AddStoreAction = (storedata) => async(dispatch, getState) =>{
+export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 	try{
-		const  {
-			AuthReducer:{userdata}
-		} = getState()
-		const token = userdata?.token;
-		if (!token) {
-			dispatch({type:'NOT_AUTHORIZED', payload:'Unauthorized'});
-		}
-		const store = await createApi(storedata, token);
-		console.log(store);
+		await createApi(storedata);
+		history.push('/admin')
 	}
 	catch(err){
 		console.log(err)

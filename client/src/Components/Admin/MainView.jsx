@@ -4,8 +4,8 @@ import SideNav from './Commons/SideNav';
 
 import Allstore from './views/Allstore';
 import Overview from './views/Overview';
-import '../Style.css'
-const Products = () =>{
+import './Style.css'
+const MainView = () =>{
 	const [tabs, setTabs] = useState('Overview');
 
 	// navbar tabs
@@ -51,4 +51,4 @@ const Products = () =>{
 		)
 }
 
-export default Products;
+export default MainView;

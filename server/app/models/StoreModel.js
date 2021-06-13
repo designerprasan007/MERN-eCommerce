@@ -4,11 +4,15 @@ const Schema = mongoose.Schema;
 
 
 const StoreSchema = Schema({
-	storeName:String,
-	storePass:String,
 	ownerName:String,
 	ownerEmail:String,
 	ownerNum:String,
+	storeName:String,
+	storePass:String,
+	shopCity:String,
+	shopCountry:String,
+	shopState:String,
+	storeAddr:String,
 	created:String,
 	verified:{
 		type:Boolean,

@@ -1,6 +1,4 @@
-import {useState} from 'react';
 import DataTable from 'react-data-table-component';
-import AddStore from './addStore';
 
 const data = [{ num: 1, title: 'Conan the Barbarian', year: '1982' }];
 const columns = [
@@ -24,19 +22,8 @@ const columns = [
 
 
 const Allstore = () =>{
-  const [showhideForm, setshowhideForm] = useState(false);
-
-
-  const handleStore = () =>{
-    setshowhideForm(showhideForm ? false : true)
-  }
-
 	return(
-		<div>
-    <div className="pt-2">
-      <button className="btn btn-primary" onClick={handleStore}> Add Store</button>
-    </div>
-      {showhideForm && <AddStore handleStore={handleStore} />}
+		<div className="pt-5">
 		 <DataTable
 	        title="Arnold Movies"
 	        columns={columns}

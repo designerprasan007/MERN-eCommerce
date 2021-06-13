@@ -2,13 +2,19 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 import adminLogin from './Components/Admin/adminLogin';
-import Store from './Components/Admin/Store/Store';
+import MainView from './Components/Admin/MainView';
+import AddStore from './Components/Admin/views/addStore'
+// store related pages
+import StoreLogin from './Components/StoreAdmin/StoreLogin'
 const App = () =>{
   return(
     <Router>
         <Switch>
-          <Route path="/admin" exact component={adminLogin} />
-          <Route path="/addStore" exact component={Store} />
+          <Route path="/adminlogin" exact component={adminLogin} />
+          <Route path="/admin" exact component={MainView} />
+          <Route path="/addstore" exact component={AddStore} />
+
+          <Route path='/StoreLogin' exact component={StoreLogin} />
         </Switch>
       </Router>
     )

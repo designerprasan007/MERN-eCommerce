@@ -20,13 +20,17 @@ AdminController.login = async(req, res) =>{
 
 		const token = admin.getSignedToken();
 	
+		const storeCounts = await Store.countDocuments()
 
 		const admindata = {
 			email: admin.email,
 			_id: admin._id,
 			token:token
 		}	
-		res.status(200).json({success:true, admindata})
+		const pageData = {
+			storeCounts
+		}
+		res.status(200).json({success:true, admindata, pageData})
 	}
 	catch(err){
 		console.log(err);
@@ -48,6 +52,25 @@ AdminController.createStore = async(req, res) =>{
 		console.log(err);
 		AdminController.serverError(err)
 	}
+}
+
+AdminController.adminPages = async(req, res) =>{
+	const storeCounts = await Store.find();
+	let varifiedStores = 0;
+	let unverifiedStores = 0;
+
+	storeCounts.map((store) =>{
+		if(store.verified == false){
+			unverifiedStores ++
+		}else{
+			varifiedStores	++
+		}
+	})
+	const pageData = {
+		varifiedStores,
+		unverifiedStores
+	}
+	res.status(200).json({success:true, pageData})
 }
 
 // AdminController.register = async(req, res) =>{
