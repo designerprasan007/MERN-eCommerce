@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { Modal } from 'react-bootstrap'
 import {useDispatch} from 'react-redux';
-import {AddStoreAction} from '../../../actions/StoreAction';
+import {AddStoreAction} from '../../../../actions/StoreAction';
 
 const AddStore = ({handleStore}) =>{
 	const [storedata, setStoreData] = useState({storeName:'', storePass:'', ownerName:'',ownerEmail:'', ownerNum:''});

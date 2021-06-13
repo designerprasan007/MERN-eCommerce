@@ -1,0 +1,18 @@
+.sidenavlist{
+	background-color: #0e6acc !important;
+	color: white !important;
+	border: none !important
+}
+.mainSide{
+	background-color: #0e6acc !important;
+	color: white !important;
+	height: 89vh
+}
+
+.active{
+	background-color:white !important;
+	color:   #0e6acc!important;
+}
+.sideNavCursor{
+	cursor: pointer;
+}

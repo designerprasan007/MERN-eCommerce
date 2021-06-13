@@ -1,3 +1,7 @@
 .loginForm{
 	width: 50% !important;
 }
+.mainBody{
+	margin-right: 0;
+	margin-left: 0;
+}
