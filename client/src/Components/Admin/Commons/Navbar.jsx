@@ -1,4 +1,5 @@
 import {useSelector} from 'react-redux';
+import './SideNav.css'
 
 const Navbar = ({history}) =>{
 	const {userdata} = useSelector((state) => state.AuthReducer);
@@ -11,7 +12,7 @@ const Navbar = ({history}) =>{
 		window.location.href = 'http://localhost:3000/adminlogin'
 	}
 	return(
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar HeadNav">
 		  <h3 className="navbar-brand">E-buy</h3>
 		  <form className="form-inline">
 		    <button className="btn btn-outline-success my-2 my-sm-0" onClick={LogoutFun} type="button">Logout</button>

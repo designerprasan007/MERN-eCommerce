@@ -39,13 +39,15 @@ AdminController.login = async(req, res) =>{
 }
 
 AdminController.createStore = async(req, res) =>{
-	const {storeName, ownerEmail, ownerName, ownerNum, storePass} = req.body;
+	const {storeName, ownerEmail, ownerName, ownerNum, storePass, storeCountry, storeState, storeCity, storeAddr} = req.body;
 	let created = moment().unix();
 	try{
-		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, ownerNum, created})
-		const password = storePass;
-		const email = ownerEmail;
-		emailService(email, password);
+		const preStore = await Store.findOne({ownerEmail});
+		if(preStore) return res.status(400).json({success:false, err:'Email already taken'})
+		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, storeCountry, storeState, storeCity, storeAddr, ownerNum, created})
+		// const password = storePass;
+		// const email = ownerEmail;
+		// emailService(email, password);
 		res.status(200).json({store});
 	}
 	catch(err){
@@ -56,19 +58,18 @@ AdminController.createStore = async(req, res) =>{
 
 AdminController.adminPages = async(req, res) =>{
 	const storeCounts = await Store.find();
-	let varifiedStores = 0;
-	let unverifiedStores = 0;
 
-	storeCounts.map((store) =>{
-		if(store.verified == false){
-			unverifiedStores ++
-		}else{
-			varifiedStores	++
-		}
-	})
+	const verified = await Store.find({verified:true});
+	const unverified = await Store.find({verified:false});
+
+	const varifiedStoresCount = verified?.length;
+	const unverifiedStoresCount = unverified?.length;
+	
 	const pageData = {
-		varifiedStores,
-		unverifiedStores
+		varifiedStoresCount,
+		unverifiedStoresCount,
+		verified,
+		unverified
 	}
 	res.status(200).json({success:true, pageData})
 }
