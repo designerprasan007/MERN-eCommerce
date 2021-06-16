@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-const adminUrl = process.env.REACT_APP_ADMIN_URL;
+const storeUrl = process.env.REACT_APP_STORE_URL;
 
-export const createApi = (storedata, token) => axios.post(`${adminUrl}/newStore`, storedata,
-	{headers:{
+export const createApi = (storedata, token) => axios.post(`${storeUrl}/newStore`, storedata)
+
+export const ManageStoreApi = (storedata, token) =>axios.post(`${storeUrl}/manageStore`, storedata, {
+	headers:{
 				Authorization: 'Admin ' + token 
 			}}
-	)
+		)

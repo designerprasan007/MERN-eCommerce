@@ -113,48 +113,24 @@ module.exports = ({userdata, created}) => {
                             <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                                 <tr>
                                 <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Application for new Store,</p>
+                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi Prasanna, Thank you for buying Store</p>
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><b>E-bay</b> Account Details. </p>
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Please Login as Admin for Actions </p>
+                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Below is your account details, use this Email and your password for Login </p>
                                   <table>
                                       <tr>
-                                        <th>
-                                          OwnerName
-                                        </th>
-                                        <th>
-                                          OwnerNum
-                                        </th>
                                         <th>
                                           OwnerEmail
                                         </th>
                                          <th>
                                           Store Name
                                         </th>
-                                        <th>
-                                          Address
-                                        </th>
-                                        <th>
-                                          Created
-                                        </th>
                                       </tr>
                                       <tr>
-                                        <td>
-                                          ${userdata.ownerName}
-                                        </td>
-                                         <td>
-                                          ${userdata.ownerNum}
-                                        </td>
                                          <td>
                                           ${userdata.ownerEmail}
                                         </td>
                                          <td>
                                           ${userdata.storeName}
-                                        </td>
-                                         <td>
-                                          ${userdata.storeState},${userdata.storeCity},${userdata.storeAddr} 
-                                        </td>
-                                         <td>
-                                          ${created}
                                         </td>
                                       </tr>
                                   </table>

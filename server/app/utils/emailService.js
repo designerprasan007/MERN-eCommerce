@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 
-const main = async (email, password) =>{
+const main = async (userdata, created, manageStore) =>{
 	let testAccount = await nodemailer.createTestAccount();
 
   // create reusable transporter object using the default SMTP transport
@@ -16,17 +16,31 @@ const main = async (email, password) =>{
 	  });
 
 	  // send mail with defined transport object
-	  let info = await transporter.sendMail({
+	  if(!manageStore){
+	  	let info = await transporter.sendMail({
 	    from: process.env.SENDINBLUE_EMAIL, // sender address
-	    to: email, // list of receivers
-	    subject: "Login password for E-buy account", // Subject line
-	    text: "Login password for E-buy account", // plain text body
+	    to: 'designerprasan007@gmail.com', // list of receivers
+	    subject: "New Ebay Account", // Subject line
+	    text: "New Ebay Account", // plain text body
 	    html:require('./emailTemplate')({
-	    		email, password
+	    		userdata, created
             })
 	    });
-	  console.log("Message sent: %s", info.messageId);
+	  }
+	  else{
+		let info = await transporter.sendMail({
+	    from: process.env.SENDINBLUE_EMAIL, // sender address
+	    to: userdata.ownerEmail, // list of receivers
+	    subject: "Store Accepted", // Subject line
+	    text: "Store Accepted", // plain text body
+	    html:require('./AcceptTemplate')({
+	    		userdata
+            })
+	    });
+	  }
+      console.log("Message sent: %s", info.messageId);
   	  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+	
 }
 
 

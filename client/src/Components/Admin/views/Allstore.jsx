@@ -1,16 +1,23 @@
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {useState} from 'react';
 import StoreTable from '../../Commons/StoreTable'
-
+import {ManageStorefun} from '../../../actions/StoreAction';
 const Allstore = () =>{
+  const [currentTab, setCurrentTab] = useState('Allstores')
 
   const {pagedata} = useSelector((state) => state.PageData);
 
-  const DeleteReq = (e) =>{
-    console.log(e.target.id);
-  }
+  const dispatch = useDispatch(); 
 
-  const AcceptReq = (e) =>{
-    console.log(e.target.id);
+  const HandleReq = (e) =>{
+    console.log(e.target.id, e.target.innerHTML);
+
+    const data = {
+      id: e.target.id,
+      action:e.target.innerHTML
+    }
+    dispatch(ManageStorefun(data))
+    
   }
 
   const columns = [
@@ -40,13 +47,7 @@ const Allstore = () =>{
     sortable: true,
   },
   {
-    cell:(row) => <button className="btn btn-sm btn-danger" id={row._id} onClick={DeleteReq} >Delete</button>,
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-  {
-    cell:(row) => <button className="btn btn-sm btn-success" id={row._id} onClick={AcceptReq} >Accept</button>,
+    cell:(row) => <button className={currentTab === 'Allstores' ? "btn btn-sm btn-danger" : "btn btn-sm btn-success" } id={row._id} onClick={HandleReq} >{currentTab === 'Allstores' ? 'Delete' : 'Accept'}</button>,
     ignoreRowClick: true,
     allowOverflow: true,
     button: true,
@@ -58,10 +59,10 @@ const Allstore = () =>{
 	return(
 		<div className="pt-5">
   		<div className="py-3">
-        <button className="btn btn-primary">All Stores</button>
-        <button className="btn btn-primary mx-2">New Request</button>  
+        <button className="btn btn-primary" onClick={() => setCurrentTab('Allstores') }>All Stores</button>
+        <button className="btn btn-primary mx-2" onClick={() => setCurrentTab('Requsts') }>New Request</button>  
       </div>
-      <StoreTable columns={columns} data={pagedata?.unverified}/>
+      <StoreTable columns={columns} title={currentTab === 'Allstores' ? 'Allstores' : 'Request Stores'}  data={currentTab === 'Allstores' ? pagedata?.verified : pagedata?.unverified}/>
 		</div>
 		)
 }

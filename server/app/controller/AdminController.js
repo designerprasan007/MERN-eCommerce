@@ -19,8 +19,11 @@ AdminController.login = async(req, res) =>{
 		if(!isMatch) return res.status(403).json({success:false, err:'Invalid password'})
 
 		const token = admin.getSignedToken();
-	
-		const storeCounts = await Store.countDocuments()
+
+		const verified = await Store.find({verified:true});
+		const unverified = await Store.find({verified:false});
+		const varifiedStoresCount = verified?.length;
+		const unverifiedStoresCount = unverified?.length;
 
 		const admindata = {
 			email: admin.email,
@@ -28,8 +31,12 @@ AdminController.login = async(req, res) =>{
 			token:token
 		}	
 		const pageData = {
-			storeCounts
+			varifiedStoresCount,
+			unverifiedStoresCount,
+			verified,
+			unverified
 		}
+
 		res.status(200).json({success:true, admindata, pageData})
 	}
 	catch(err){
@@ -38,23 +45,7 @@ AdminController.login = async(req, res) =>{
 	}
 }
 
-AdminController.createStore = async(req, res) =>{
-	const {storeName, ownerEmail, ownerName, ownerNum, storePass, storeCountry, storeState, storeCity, storeAddr} = req.body;
-	let created = moment().unix();
-	try{
-		const preStore = await Store.findOne({ownerEmail});
-		if(preStore) return res.status(400).json({success:false, err:'Email already taken'})
-		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, storeCountry, storeState, storeCity, storeAddr, ownerNum, created})
-		// const password = storePass;
-		// const email = ownerEmail;
-		// emailService(email, password);
-		res.status(200).json({store});
-	}
-	catch(err){
-		console.log(err);
-		AdminController.serverError(err)
-	}
-}
+
 
 AdminController.adminPages = async(req, res) =>{
 	const storeCounts = await Store.find();
@@ -88,7 +79,7 @@ AdminController.adminPages = async(req, res) =>{
 // }
 
 
-AdminController.serverError = () =>{
+AdminController.serverError = (err) =>{
 	res.status(500).json({success:false, err})
 }
 

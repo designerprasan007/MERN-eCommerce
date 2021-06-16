@@ -6,7 +6,6 @@ const adminController = require('../controller/AdminController');
 
 admin.post('/adminlogin', adminController.login);
 // admin.post('/adminregister', adminController.register);
-admin.post('/newStore', adminController.createStore)
 
 admin.post('/adminPages', getAdminData, adminController.adminPages)
 

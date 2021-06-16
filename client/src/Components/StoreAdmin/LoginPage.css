@@ -1,0 +1,13 @@
+.paperStyle{
+	padding: 20px;
+	height: 70vh;
+	width: 300px;
+	margin: auto;
+}
+.avatarBG{
+	background-color: #62c4af !important;
+	margin-bottom: 3% !important;
+}
+.submitBtn{
+	margin-top: 3% !important;
+}

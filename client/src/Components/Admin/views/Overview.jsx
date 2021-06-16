@@ -1,16 +1,5 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect} from 'react';
-import {getPagedata} from '../../../actions/adminActions';
-
 import './Style.css';
-
-const Overview = () =>{
-	const dispatch = useDispatch();
-
-	useEffect(() =>{
-		dispatch(getPagedata())
-	},[dispatch])
-	const {pagedata} = useSelector((state) => state.PageData);
+const Overview = ({pagedata}) =>{
 	return(
 			<div className="row pt-5">
 				<div className="col-md-4">
