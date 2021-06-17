@@ -1,4 +1,4 @@
-import {createApi, ManageStoreApi} from '../api/StoreApi';
+import {createApi, ManageStoreApi, LoginStoreApi} from '../api/StoreApi';
 export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 	try{
 		await createApi(storedata);
@@ -12,7 +12,8 @@ export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 
 export const StoreLoginFun = (userdata) => async(dispatch, getState) =>{
 	try{
-		console.log(userdata)
+		const data = await  LoginStoreApi(userdata); 
+		console.log(data)
 	}catch(err){
 		console.log(err);
 	}

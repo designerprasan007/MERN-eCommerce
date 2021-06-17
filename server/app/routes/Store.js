@@ -8,6 +8,8 @@ const storeController = require('../controller/StoreController');
 
 store.post('/newStore', storeController.createStore)
 
-store.post('/manageStore', getAdminData, storeController.manageStore)
+store.post('/manageStore', getAdminData, storeController.manageStore);
+
+store.post('/StoreLogin', storeController.StoreLogin)
 
 module.exports = store;

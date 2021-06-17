@@ -9,3 +9,4 @@ export const ManageStoreApi = (storedata, token) =>axios.post(`${storeUrl}/manag
 				Authorization: 'Admin ' + token 
 			}}
 		)
+export const LoginStoreApi = (userdata) =>axios.post(`${storeUrl}/StoreLogin`, userdata);

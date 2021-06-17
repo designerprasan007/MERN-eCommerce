@@ -1,6 +1,7 @@
 import  React, {useState} from 'react';
 import {loginAdminAction} from '../../actions/adminActions';
 import {useDispatch, useSelector} from 'react-redux';
+import {TextField} from '@material-ui/core'
 
 import './Style.css';
 
@@ -29,21 +30,28 @@ const AdminLogin = ({history}) => {
 
 
 	return(
-		<form className="container pt-5 loginForm">
-		  {error && <p className="text-danger">All Fields Required</p>}	
-		  {loginerror && <p className="text-danger">Invalid Credentials</p>}
-		  <div className="form-group py-3">
-		    <label htmlFor="exampleInputEmail1">Email address</label>
-		    <input type="email" className="form-control" id="exampleInputEmail1" value={logindata.email} onChange={(e) => setLoginData({...logindata, email:e.target.value})}  />
-		  </div>
-		  <div className="form-group">
-		    <label htmlFor="exampleInputPassword1">Password</label>
-		    <input type="password" className="form-control" id="exampleInputPassword1" value={logindata.password} onChange={(e) => setLoginData({...logindata, password:e.target.value})} />
-		  </div>
-		  <div className="text-center pt-3">
-		  	<button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
-		  </div>	
-		</form>
+		<div className="container-fluid">
+			<div className="row pt-5">
+				<div className="pt-5 col-md-4 offset-md-4 col-sm-4 offset-sm-4">
+					<div className="shadow-lg p-3 mb-5 bg-white rounded">
+						<h3 className="text-center">Login</h3>
+						<form className="container pt-5 ">
+						  {error && <p className="text-danger">All Fields Required</p>}	
+						  {loginerror && <p className="text-danger">Invalid Credentials</p>}
+						  <div className="form-group py-3">
+							  <TextField label="Email" type="text" value={logindata.email} placeholder="Enter Email" fullWidth required onChange={(e) => setLoginData({...logindata, email:e.target.value})} />
+						  </div>
+						  <div className="form-group">
+							  <TextField label="Password" type="password" value={logindata.password} placeholder="Enter Password" fullWidth required onChange={(e) => setLoginData({...logindata, password:e.target.value})} />
+						  </div>
+						  <div className="text-center pt-3">
+						  	<button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
+						  </div>	
+						</form>
+					</div>		
+				</div>
+			</div>	
+		</div>
 		)}
 
 export default AdminLogin

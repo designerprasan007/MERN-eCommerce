@@ -3,7 +3,7 @@ import './SideNav.css'
 
 const Navbar = ({history}) =>{
 	const {userdata} = useSelector((state) => state.AuthReducer);
-	if(userdata?.email !== 'prasanna@gmail.com'){
+	if(userdata?.email !== process.env.REACT_APP_ADMIN_EMAIL){
 		window.location.href = 'http://localhost:3000/adminlogin'
 	}
 
