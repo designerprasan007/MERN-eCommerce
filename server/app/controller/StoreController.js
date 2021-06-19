@@ -45,7 +45,8 @@ StoreController.StoreLogin = async(req, res) =>{
 			storeCity:  user.storeCity, 
 			storeAddr:  user.storeAddr, 
 			ownerNum:  user.ownerNum, 
-			created:  user.created 
+			created:  user.created,
+			token 
 		}
 		res.status(200).json({success:true, ownerdata})
 	}catch(err){

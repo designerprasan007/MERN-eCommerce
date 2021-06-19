@@ -2,7 +2,10 @@
 	width: 50% !important;
 }
 .mainBody{
-	margin-right: 0;
-	margin-left: 0;
 	background-color: #f5e4c9;
+}
+
+.row {
+    margin-right: 0px !important;
+    margin-left: -11px !important;
 }

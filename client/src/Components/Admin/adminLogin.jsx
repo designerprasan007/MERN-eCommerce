@@ -1,7 +1,7 @@
 import  React, {useState} from 'react';
 import {loginAdminAction} from '../../actions/adminActions';
 import {useDispatch, useSelector} from 'react-redux';
-import {TextField} from '@material-ui/core'
+import {TextField, Button} from '@material-ui/core'
 
 import './Style.css';
 
@@ -45,7 +45,7 @@ const AdminLogin = ({history}) => {
 							  <TextField label="Password" type="password" value={logindata.password} placeholder="Enter Password" fullWidth required onChange={(e) => setLoginData({...logindata, password:e.target.value})} />
 						  </div>
 						  <div className="text-center pt-3">
-						  	<button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
+						  	<Button variant="contained" size="large" color="primary" onClick={submitForm} >Submit</Button>
 						  </div>	
 						</form>
 					</div>		

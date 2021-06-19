@@ -35,7 +35,7 @@ const MainView = () =>{
 			<div className="container">
 				<Navbar />
 			</div>
-			<div className="container-fluid">
+			<div className="col-md-12">
 				<div className="row no-gutters pt-3">
 					<div className="col-md-3 SideNavBar">
 						<SideNav  currentTab = {currentTab}/>

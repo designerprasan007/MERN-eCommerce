@@ -10,10 +10,12 @@ export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 	}
 }
 
-export const StoreLoginFun = (userdata) => async(dispatch, getState) =>{
+export const StoreLoginFun = (userdata, history) => async(dispatch, getState) =>{
 	try{
-		const data = await  LoginStoreApi(userdata); 
-		console.log(data)
+		const {data} = await  LoginStoreApi(userdata); 
+		dispatch({type:'LOGIN_ADMIN', payload:data.ownerdata})
+		localStorage.setItem('Userinfo', JSON.stringify(data.ownerdata))
+		history.push('/storeOwner')
 	}catch(err){
 		console.log(err);
 	}

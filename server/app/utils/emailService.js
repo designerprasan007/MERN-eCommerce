@@ -22,7 +22,7 @@ const main = async (userdata, created, manageStore) =>{
 	    to: 'designerprasan007@gmail.com', // list of receivers
 	    subject: "New Ebay Account", // Subject line
 	    text: "New Ebay Account", // plain text body
-	    html:require('./emailTemplate')({
+	    html:require('./RegisterTemplate')({
 	    		userdata, created
             })
 	    });
