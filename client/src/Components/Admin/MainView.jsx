@@ -32,11 +32,9 @@ const MainView = () =>{
 
 	return(
 		<div className="mainBody">
-			<div className="container">
-				<Navbar />
-			</div>
+			<Navbar />
 			<div className="col-md-12">
-				<div className="row no-gutters pt-3">
+				<div className="row no-gutters">
 					<div className="col-md-3 SideNavBar">
 						<SideNav  currentTab = {currentTab}/>
 					</div>

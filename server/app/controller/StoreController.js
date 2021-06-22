@@ -9,7 +9,7 @@ StoreController.createStore = async(req, res) =>{
 	try{
 		const preStore = await Store.findOne({ownerEmail});
 		if(preStore) return res.status(400).json({success:false, err:'Email already taken'})
-		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, storeCountry, storeState, storeCity, storeAddr, ownerNum, created})
+		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, storeCountry, storeState, storeCity, storeAddr, ownerNum})
 		const manageStore = false;
 		emailService(req.body, created, manageStore);
 		res.status(200).json({store});
@@ -26,6 +26,9 @@ StoreController.StoreLogin = async(req, res) =>{
 		const user = await Store.findOne({ownerEmail:email});
 
 		if(!user) return res.status(401).json({success:false, err:'Email not Found'});
+
+
+		if(!user.verified)	return res.status(401).json({success:false, err:'Email not verified'});
 
 		const isMatch = await user.MatchPass(password);
 

@@ -26,6 +26,8 @@ const main = async (userdata, created, manageStore) =>{
 	    		userdata, created
             })
 	    });
+	    console.log("Message sent: %s", info.messageId);
+  	  	console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 	  }
 	  else{
 		let info = await transporter.sendMail({
@@ -37,9 +39,10 @@ const main = async (userdata, created, manageStore) =>{
 	    		userdata
             })
 	    });
+	  	console.log("Message sent: %s", info.messageId);
+  	  	console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 	  }
-      console.log("Message sent: %s", info.messageId);
-  	  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      
 	
 }
 

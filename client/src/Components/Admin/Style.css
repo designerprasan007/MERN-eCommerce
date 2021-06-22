@@ -9,3 +9,11 @@
     margin-right: 0px !important;
     margin-left: -11px !important;
 }
+.graph{
+	background-color: black;
+	height: 200px;
+	width: 100%;
+}
+.SideNavBar{
+	background-color: #3F51B5 !important;
+}

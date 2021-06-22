@@ -19,9 +19,7 @@ const MainView = () =>{
 
 	return (
 		<div className="StoreHeroBody col-md-12">
-			<div className="container pb-2">
-				<Navbar />
-			</div>
+			<Navbar />
 			<div className="row">
 				<div className="col-md-3">
 					<SideNav currentTab={currentTab} />

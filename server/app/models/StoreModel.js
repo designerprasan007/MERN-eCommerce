@@ -16,11 +16,15 @@ const StoreSchema = Schema({
 	storeCountry:String,
 	storeState:String,
 	storeAddr:String,
-	created:String,
 	verified:{
 		type:Boolean,
 		default:false
 	},
+	created:{
+		type: Date,
+		required: true,
+        default: Date.now
+    },
 })
 
 

@@ -1,6 +1,15 @@
-import {TextField, Button, MenuItem} from '@material-ui/core'
+import {TextField, Button, TextareaAutosize} from '@material-ui/core'
+import Select from 'react-select'
+
+import {Colors} from '../../../../Helpers/Colors';
+
 import './StepForm.css'
 const StepTwo = ({PrevPage, NextPage, productData, setProductData}) =>{
+	
+		const handlechange = (options) =>{
+			setProductData({...productData, productColor:options})
+			console.log(options);
+		}
 	return (
 		<div className="container-fluid">
 			<div className="row pt-5">
@@ -9,20 +18,20 @@ const StepTwo = ({PrevPage, NextPage, productData, setProductData}) =>{
 						<h3 className="text-center">Add Product</h3>
 						<form className="container">
 						  <div className="form-group py-3">
-							  <TextField label="Email" type="text" placeholder="Enter Email" fullWidth required />
+						   <Select isMulti onChange={handlechange} value={productData.productColor}
+									    name="colors"
+									    className="basic-multi-select"
+									    classNamePrefix="select"
+									    options={Colors} />
 						  </div>
 						  <div className="form-group">
-							  <TextField label="Password" type="password" placeholder="Enter Password" fullWidth required />
+								  <TextareaAutosize className="textfield" aria-label="minimum height" required rowsMin={3} placeholder="Product Description" />
 						  </div>
 						  <div className="form-group pt-3">
-						  <TextField id="select" label="Catagory" value="" select fullWidth required>
-							  <MenuItem value="Mobile">Mobile</MenuItem>
-							  <MenuItem value="TV">TV</MenuItem>
-							  <MenuItem value="Watch">Watch</MenuItem>
-							  <MenuItem value="WashingMachine">Washing Machine</MenuItem>
-							  <MenuItem value="Fridge">Fridge</MenuItem>
-							  <MenuItem value="Laptop">Laptop</MenuItem>
-						  </TextField>
+							  <TextField label="Price" value={productData.productPrice} onChange={(e) => setProductData({...productData, productPrice:e.target.value})} type="number" fullWidth required />
+						  </div>
+						  <div className="form-group pt-3">
+							  <TextField label="Quantity" value={productData.productQty} onChange={(e) => setProductData({...productData, productQty:e.target.value})} type="number" fullWidth required />
 						  </div>
 						  <div className="text-center pt-3">
 						  	<Button className="prevBtn" variant="contained" color="primary" onClick={PrevPage} size="large" >Prev</Button>

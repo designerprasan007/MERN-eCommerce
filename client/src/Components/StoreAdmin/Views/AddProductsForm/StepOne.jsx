@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {TextField, Button, MenuItem} from '@material-ui/core'
 import {Brands} from '../../../../Helpers/Brands';
 const StepOne = ({NextPage, productData, setProductData}) =>{
-	const [availbrand, SetAvailableBrand] = useState();
+	const [availbrand, SetAvailableBrand] = useState([]);
 	const [reqError, SetReqError] = useState(false)
 	const getBrand = (e) =>{
 		const Catagory = e.target.value;
@@ -16,6 +16,7 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 			SetReqError(true)
 			return
 		}
+		console.log(productData);
 		NextPage();
 	}
 

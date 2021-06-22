@@ -19,25 +19,12 @@ AdminController.login = async(req, res) =>{
 		if(!isMatch) return res.status(403).json({success:false, err:'Invalid password'})
 
 		const token = admin.getSignedToken();
-
-		const verified = await Store.find({verified:true});
-		const unverified = await Store.find({verified:false});
-		const varifiedStoresCount = verified?.length;
-		const unverifiedStoresCount = unverified?.length;
-
 		const admindata = {
 			email: admin.email,
 			_id: admin._id,
 			token:token
 		}	
-		const pageData = {
-			varifiedStoresCount,
-			unverifiedStoresCount,
-			verified,
-			unverified
-		}
-
-		res.status(200).json({success:true, admindata, pageData})
+		AdminController.AdminPages(req, res, admindata)
 	}
 	catch(err){
 		console.log(err);
@@ -48,21 +35,26 @@ AdminController.login = async(req, res) =>{
 
 
 AdminController.adminPages = async(req, res) =>{
+	AdminController.AdminPages(req, res)
+}
+
+AdminController.AdminPages = async(req, res, admindata) =>{
 	const storeCounts = await Store.find();
 
 	const verified = await Store.find({verified:true});
 	const unverified = await Store.find({verified:false});
+	// const graphData = await Store.aggregate([
+	// 	{$group: {_id : {name : '$storeName', status: '$verified', created:'$created'}, total:{$sum :1}}},
+	// 	{$project : {name : '$_id.storeName', status : '$_id.verified', total : '$total', _id : 0}}
+	// 	])
+	// console.log();
 
-	const varifiedStoresCount = verified?.length;
-	const unverifiedStoresCount = unverified?.length;
-	
 	const pageData = {
-		varifiedStoresCount,
-		unverifiedStoresCount,
 		verified,
-		unverified
+		unverified,
 	}
-	res.status(200).json({success:true, pageData})
+
+	res.status(200).json({success:true, admindata, pageData})
 }
 
 // AdminController.register = async(req, res) =>{

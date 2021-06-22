@@ -1,11 +1,13 @@
 import './Style.css';
 const Overview = ({pagedata}) =>{
+	console.log(pagedata.verified.length)
 	return(
+		<>
 			<div className="row pt-5">
 				<div className="col-md-4">
 					<div className="overviewContent shadow-lg p-3 mb-5 bg-white rounded text-center">
 						<h3 className="pt-5">Number of Stores</h3>
-						<h5>{pagedata?.varifiedStoresCount}</h5>
+						<h5>{pagedata?.verified?.length}</h5>
 					</div>
 				</div>
 				<div className="col-md-4">
@@ -17,7 +19,7 @@ const Overview = ({pagedata}) =>{
 				<div className="col-md-4">
 					<div className="overviewContent shadow-lg p-3 mb-5 bg-white rounded text-center">
 						<h3 className="pt-5">New Applications</h3>
-						<h5>{pagedata?.unverifiedStoresCount}</h5>
+						<h5>{pagedata?.unverified?.length}</h5>
 					</div>
 				</div>
 				<div className="col-md-4">
@@ -27,6 +29,9 @@ const Overview = ({pagedata}) =>{
 					</div>
 				</div>
 			</div>
+			<div className="graph">
+						</div>
+		</>
 		)
 }
 

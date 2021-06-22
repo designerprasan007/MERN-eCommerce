@@ -1,5 +1,19 @@
+import {Button, Toolbar, Typography, AppBar, makeStyles, } from '@material-ui/core';
+
 import {useSelector} from 'react-redux';
 import './SideNav.css'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 const Navbar = ({history}) =>{
 	const {userdata} = useSelector((state) => state.AuthReducer);
@@ -11,13 +25,18 @@ const Navbar = ({history}) =>{
 		localStorage.removeItem("Userinfo");
 		window.location.href = 'http://localhost:3000/adminlogin'
 	}
+    const classes = useStyles();
 	return(
-		<nav className="navbar HeadNav">
-		  <h3 className="navbar-brand">E-buy</h3>
-		  <form className="form-inline">
-		    <button className="btn btn-outline-success my-2 my-sm-0" onClick={LogoutFun} type="button">Logout</button>
-		  </form>
-		</nav>
+		<div className={classes.root}>
+	      <AppBar position="static">
+	        <Toolbar className="container">
+	          <Typography variant="h6" className={classes.title}>
+	            E-Buys
+	          </Typography>
+	          <Button color="inherit" onClick={LogoutFun}>Logout</Button>
+	        </Toolbar>
+	      </AppBar>
+	    </div>
 		)
 }
 
