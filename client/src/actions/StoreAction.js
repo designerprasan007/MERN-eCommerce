@@ -18,6 +18,7 @@ export const StoreLoginFun = (userdata, history) => async(dispatch, getState) =>
 		history.push('/storeOwner')
 	}catch(err){
 		console.log(err);
+		dispatch({type:'STORE_LOGIN_ERROR', payload:err.response.data.err})
 	}
 }
 

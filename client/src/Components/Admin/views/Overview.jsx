@@ -1,6 +1,5 @@
 import './Style.css';
 const Overview = ({pagedata}) =>{
-	console.log(pagedata.verified.length)
 	return(
 		<>
 			<div className="row pt-5">

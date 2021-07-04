@@ -11,7 +11,7 @@ const StoreLogin = ({history}) => {
 
 	const dispatch = useDispatch();
 
-	const {loginerror} = useSelector((state) => state.AuthReducer);
+	const {loginerror} = useSelector((state) => state.StoreReducer);
 	if(loginerror){
 		console.log(loginerror)
 		setTimeout(() => dispatch({type:'LOGIN_RESET'}), 5000)
@@ -37,7 +37,7 @@ const StoreLogin = ({history}) => {
 						<h3 className="text-center">Login</h3>
 						<form className="container pt-5 ">
 						  {error && <p className="text-danger">All Fields Required</p>}	
-						  {loginerror && <p className="text-danger">Invalid Credentials</p>}
+						  {loginerror && <p className="text-danger">{loginerror}</p>}
 						  <div className="form-group py-3">
 							  <TextField label="Email" type="text" value={logindata.email} placeholder="Enter Email" fullWidth required onChange={(e) => setLoginData({...logindata, email:e.target.value})} />
 						  </div>

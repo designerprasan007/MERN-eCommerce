@@ -11,7 +11,7 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 		SetAvailableBrand(filterd)
 	}
 	const callNextPage = () =>{
-		if(!productData.productName || !productData.productDesc || !productData.productCata || !productData.productBrand)
+		if(!productData.productName || !productData.productModel || !productData.productCata || !productData.productBrand)
 		{
 			SetReqError(true)
 			return
@@ -32,7 +32,7 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 							  <TextField label="Product Name" value={productData.productName} onChange={(e) => setProductData({...productData, productName:e.target.value})} type="text" fullWidth required />
 						  </div>
 						  <div className="form-group">
-							  <TextField label="Description" value={productData.productDesc} onChange={(e) => setProductData({...productData, productDesc:e.target.value})} type="text" fullWidth required />
+							  <TextField label="ModelNumber or ModelName" value={productData.productModel} onChange={(e) => setProductData({...productData, productModel:e.target.value})} type="text" fullWidth required />
 						  </div>
 						  <div className="form-group pt-3">
 							    <TextField id="select" label="Catagory" value={productData.productCata} onChange={(e) => getBrand(e)} select fullWidth required>

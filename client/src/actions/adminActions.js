@@ -8,6 +8,7 @@ export const loginAdminAction = (userdata, history) => async(dispatch) =>{
 		history.push('/admin')
 	}
 	catch(err){
+		// console.log(err.response);
 		dispatch({type:'LOGIN_ERROR', payload:err.response.data.err})
 	}
 }
