@@ -1,6 +1,9 @@
 import {useState} from 'react';
 import {TextField, Button, MenuItem} from '@material-ui/core'
 import {Brands} from '../../../../Helpers/Brands';
+import {Colors} from '../../../../Helpers/Colors';
+import Select from 'react-select'
+
 const StepOne = ({NextPage, productData, setProductData}) =>{
 	const [availbrand, SetAvailableBrand] = useState([]);
 	const [reqError, SetReqError] = useState(false)
@@ -10,6 +13,10 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 		const filterd = Brands.filter((ele => ele.Cata === Catagory)) 
 		SetAvailableBrand(filterd)
 	}
+    const handlechange = (options) =>{
+        setProductData({...productData, productColor:options})
+        console.log(options);
+    }
 	const callNextPage = () =>{
 		if(!productData.productName || !productData.productModel || !productData.productCata || !productData.productBrand)
 		{
@@ -52,6 +59,15 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 									))}
 							   </TextField>
 						  </div>
+						   <div className="form-group py-3">
+                           <Select isMulti onChange={handlechange} value={productData.productColor}
+                                        name="colors"
+                                        className="basic-multi-select"
+                                        classNamePrefix="colors"
+                                        options={Colors}
+                                        placeholder="Colors*"
+                                         />
+                          </div>
 						  <div className="text-center pt-3">
 						  	<Button variant="contained" color="primary" onClick={() => callNextPage()} size="large" >Next</Button>
 						  </div>	

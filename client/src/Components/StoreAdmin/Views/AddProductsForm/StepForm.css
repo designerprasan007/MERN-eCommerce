@@ -9,3 +9,10 @@
 .colorSelect{
 	border-style:none;
 }
+.ck-editor__editable_inline{
+	height: 48vh;
+}
+.css-yk16xz-control{
+	border-style: none !important;
+	border-bottom: 1px solid #949494 !important;
+}

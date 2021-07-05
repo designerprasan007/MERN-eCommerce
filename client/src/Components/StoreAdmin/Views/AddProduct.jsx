@@ -4,7 +4,7 @@ import StepTwo from './AddProductsForm/StepTwo';
 import StepThree from './AddProductsForm/StepThree';
 
 const AddProduct = () =>{
-	const [productData, setProductData] = useState({productName:'tv', productModel:'xz4', productPrice:'', productColor:[], productQty:'', productCata:'', productSpeci:'', productBrand:'samsung', productImg:[]})
+	const [productData, setProductData] = useState({productName:'TV', productModel:'xz4', productColor:[], productCata:'TV', productSpeci:'', productBrand:'', ProVal:[]})
 	const [pageCount, setPageCount] = useState(1);
 	
 	const NextPage = () =>{
