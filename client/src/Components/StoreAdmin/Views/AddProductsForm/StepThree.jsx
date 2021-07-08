@@ -19,7 +19,6 @@ const StepThree = ({PrevPage, NextPage, productData, setProductData}) =>{
          SetReqError(true)
          return
         }
-        console.log(productData);
         NextPage();
     }
 
@@ -35,7 +34,7 @@ const StepThree = ({PrevPage, NextPage, productData, setProductData}) =>{
                             <div className="form-group py-3">
                                  <CKEditor
                                         editor={ ClassicEditor }
-                                        data=""
+                                        data={productData.productSpeci}
                                         onChange={ ( event, editor ) => {
                                             const data = editor.getData();
                                             setdescription(data)

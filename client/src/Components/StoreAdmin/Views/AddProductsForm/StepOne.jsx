@@ -4,7 +4,7 @@ import {Brands} from '../../../../Helpers/Brands';
 import {Colors} from '../../../../Helpers/Colors';
 import Select from 'react-select'
 
-const StepOne = ({NextPage, productData, setProductData}) =>{
+const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrData}) =>{
 	const [availbrand, SetAvailableBrand] = useState([]);
 	const [reqError, SetReqError] = useState(false)
 	const getBrand = (e) =>{
@@ -15,15 +15,18 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 	}
     const handlechange = (options) =>{
         setProductData({...productData, productColor:options})
-        console.log(options);
     }
 	const callNextPage = () =>{
-		if(!productData.productName || !productData.productModel || !productData.productCata || !productData.productBrand)
+		if(!productData.productName || !productData.productModel || !productData.productCata || !productData.productBrand || !productData.productColor)
 		{
 			SetReqError(true)
 			return
 		}
-		console.log(productData);
+		productData.productColor.map((val) =>{
+			var obj = {color: val.value, price:'', qty:'', images:[]};
+			proClrData.push(obj)
+			return true
+		})	
 		NextPage();
 	}
 
@@ -52,7 +55,7 @@ const StepOne = ({NextPage, productData, setProductData}) =>{
 							   </TextField>
 						  </div>
 						  <div className="form-group pt-3">
-							    <TextField id="select" label="Brand" value={productData.productBrand} onChange={(e) => setProductData({...productData, productBrand:e.target.value})} select fullWidth required>
+							    <TextField id="select" label="Brand" value={productData?.productBrand || ''} onChange={(e) => setProductData({...productData, productBrand:e.target.value})} select fullWidth required>
   								    <MenuItem value=""></MenuItem>
 									{availbrand?.map((ele, id) =>(
 									  <MenuItem key={id} value={ele.Name}>{ele.Name}</MenuItem>

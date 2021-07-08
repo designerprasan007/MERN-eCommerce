@@ -16,3 +16,14 @@
 	border-style: none !important;
 	border-bottom: 1px solid #949494 !important;
 }
+.prevImg{
+	height: 200px;
+	width: 200px;
+}
+.legend{
+	background-color: rgba(244, 242, 247, 0.8) !important;
+	color: black !important;
+	opacity: 1 !important;
+	bottom: 0px !important;
+	padding: 0px !important;
+}
