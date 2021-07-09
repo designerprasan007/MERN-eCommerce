@@ -24,7 +24,7 @@ const MainView = () =>{
 				<div className="col-md-3">
 					<SideNav currentTab={currentTab} />
 				</div>
-				<div className="col-md-9">
+				<div className="col-md-9 heroMain">
 					{tabs === 'Overview' && 
 						<Overview />
 					}

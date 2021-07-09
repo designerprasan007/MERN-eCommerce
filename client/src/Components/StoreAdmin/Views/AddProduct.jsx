@@ -18,7 +18,6 @@ const AddProduct = () =>{
 	const PrevPage = () =>{
 		if(pageCount > 0){
 			setPageCount(pageCount - 1)
-			console.log(productData, proClrData);
 		}
 	}
 

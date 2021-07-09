@@ -28,12 +28,12 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
             if(check){
                 proClrData[key].images[imgkey].src = URL.createObjectURL(event.target.files[0]);
                 proClrData[key].images[imgkey].imgdata =event.target.files[0];
+                console.log(proClrData[key].images)
             }
             else{
                 SetimgError(true);
                 event.target.value = null;
             }
-            console.log(proClrData)
         }
     }
 
@@ -44,10 +44,11 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
     }
     const addImages = (key) =>{
         var obj = {src:'',imgdata:''};
-        proClrData.images = proClrData[key].images.push(obj);
-        setProClrData(proClrData)
-    }
-    console.log(proClrData)
+        setProClrData(data => data.map((el, i) => i === key ? {
+            ...el,
+            images: [...el.images, obj],
+          } : el));
+        }
     return (
         <div className="container-fluid">
             <div className="row pt-5">
@@ -73,6 +74,7 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
                                         </div>
                                         {clr?.images?.map((img, imgkey) =>{
                                            return ( <div className="form-group pt-3" key={imgkey}>
+                                                        <p>imageName: {img?.imgdata?.name}</p>
                                                         <TextField label="Image" name="images" value="" onChange={(event) => handleImage(key, imgkey, event)} accept="image/*"  type="file" fullWidth required />
                                                     </div>)
                                         })}

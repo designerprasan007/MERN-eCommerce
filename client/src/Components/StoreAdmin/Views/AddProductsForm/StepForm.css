@@ -27,3 +27,18 @@
 	bottom: 0px !important;
 	padding: 0px !important;
 }
+.prevImgDiv{
+	display: inline-block;
+}
+.prevImage{
+	border: 1px solid black;
+	width: 100px;
+	margin-right: 3px;
+	margin-left: 3px;
+	padding: 2%;
+
+}
+.mainPrevImgThumbnail{
+	height: 50px;
+	width: 50px;
+}
