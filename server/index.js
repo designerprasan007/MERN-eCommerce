@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 5000
 
 const database = require('./app/config/database');
 const admin = require('./app/routes/Admin');
-const store = require('./app/routes/Store')
+const store = require('./app/routes/Store');
+const product = require('./app/routes/Product');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -21,7 +22,8 @@ app.use(helmet());
 
 
 app.use('/admin', admin);
-app.use('/store', store)
+app.use('/store', store);
+app.use('/product', product)
 
 app.listen(PORT, () =>{
 	database();

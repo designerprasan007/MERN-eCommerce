@@ -1,13 +1,15 @@
 import {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {Button} from '@material-ui/core';
 import ReactHtmlParser	 from 'react-html-parser';
-// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-// import {Carousel} from 'react-responsive-carousel'
-
+import {createNewProductFunc} from '../../../../actions/ProductAction';
 import './StepForm.css'
 const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 	const [prevImages, setPrevImages] = useState(proClrData[0].images);
 	const [currentImg, setCurrentImg] = useState(proClrData[0].images[0].src)
+	
+	const dispatch = useDispatch();
+
 	useEffect (() =>{
 		setPrevImages(proClrData[0].images)
 	},[proClrData])
@@ -15,6 +17,21 @@ const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 	const SubmitForm = (e) =>{
 		console.log(proClrData);
 		console.log(productData);
+		const formData = new FormData();
+
+		for(const val of proClrData ){
+			console.log(val.color, '-------------------------')
+			formData.append('productImg[]', val)
+		}
+
+		formData.append('productName', productData.productName)
+		formData.append('productModel', productData.productModel)
+		formData.append('productCata', productData.productCata)
+		formData.append('productSpeci', productData.productSpeci)
+		formData.append('productBrand', productData.productBrand)
+
+		dispatch(createNewProductFunc(formData));
+		console.log(formData);
 
 	}
 	const setImageView = (key) =>{

@@ -52,3 +52,4 @@ export const ManageStorefun = (storedata) =>async(dispatch, getState) =>{
 		console.log(err)
 	}
 }
+
