@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 
 const app = express();
 
@@ -15,7 +16,7 @@ const store = require('./app/routes/Store');
 const product = require('./app/routes/Product');
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:false}));
 app.use(morgan('dev'));
 app.use(cors());
 app.use(helmet());
@@ -24,6 +25,9 @@ app.use(helmet());
 app.use('/admin', admin);
 app.use('/store', store);
 app.use('/product', product)
+
+app.use(express.static(path.join(__dirname, 'productImg')));
+
 
 app.listen(PORT, () =>{
 	database();

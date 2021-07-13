@@ -1,4 +1,5 @@
 const express = require('express');
+const multer  = require('multer');
 
 const product = express.Router();
 const {getAdminData} = require('../middleware/adminVerify');
@@ -6,7 +7,29 @@ const {getAdminData} = require('../middleware/adminVerify');
 
 const ProductController = require('../controller/ProductController');
 
-product.post('/newproduct', ProductController.createproduct)
+const path = require('path');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './productImg');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname +'color'+Date.now() + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+
+
+
+product.post('/newproduct', upload.any('productImg'), ProductController.createproduct)
 
 // product.post('/manageproduct', getAdminData, ProductController.manageproduct);
 

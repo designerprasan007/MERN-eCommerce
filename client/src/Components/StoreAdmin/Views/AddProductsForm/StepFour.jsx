@@ -17,22 +17,19 @@ const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 	const SubmitForm = (e) =>{
 		console.log(proClrData);
 		console.log(productData);
-		const formData = new FormData();
+		let formData = new FormData();
 
-		for(const val of proClrData ){
-			console.log(val.color, '-------------------------')
-			formData.append('productImg[]', val)
-		}
-
+		proClrData.map((prod) =>(
+			prod.images.map((img) =>(
+			formData.append(prod.color, img.imgdata)
+			))
+		))
 		formData.append('productName', productData.productName)
 		formData.append('productModel', productData.productModel)
 		formData.append('productCata', productData.productCata)
 		formData.append('productSpeci', productData.productSpeci)
 		formData.append('productBrand', productData.productBrand)
-
 		dispatch(createNewProductFunc(formData));
-		console.log(formData);
-
 	}
 	const setImageView = (key) =>{
 		setPrevImages(proClrData[key].images)

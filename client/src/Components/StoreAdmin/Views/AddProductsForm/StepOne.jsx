@@ -23,7 +23,7 @@ const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrDa
 			return
 		}
 		productData.productColor.map((val) =>{
-			var obj = {color: val.value, price:'', qty:'', images:[]};
+			var obj = {color: val.value, price:'10', qty:'5', images:[]};
 			proClrData.push(obj)
 			return true
 		})	

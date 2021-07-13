@@ -6,7 +6,7 @@ import StepFour from './AddProductsForm/StepFour';
 
 
 const AddProduct = () =>{
-	const [productData, setProductData] = useState({productName:'', productModel:'', productColor:[], productCata:'', productSpeci:'', productBrand:''})
+	const [productData, setProductData] = useState({productName:'prasanna', productModel:'working', productColor:[], productCata:'', productSpeci:'<p>nice product</p>', productBrand:''})
 	const [proClrData, setProClrData] = useState([])
 	const [pageCount, setPageCount] = useState(1);
 	

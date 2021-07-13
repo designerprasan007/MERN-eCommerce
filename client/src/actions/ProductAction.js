@@ -1,9 +1,8 @@
 import {CreateProductApi} from '../api/ProductsApi';
-export const createNewProductFunc = (formdata, history) => async(dispatch, getState) =>{
+export const createNewProductFunc = (formData) => async(dispatch, getState) =>{
 	try{
-		console.log(formdata);
-		const prod = await CreateProductApi(formdata);
-		console.log(prod)
+		const {data} = await CreateProductApi(formData);
+		console.log(data)
 	}
 	catch(err){
 		console.log(err);
