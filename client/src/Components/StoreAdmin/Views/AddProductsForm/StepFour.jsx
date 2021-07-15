@@ -1,24 +1,35 @@
 import {useState, useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button} from '@material-ui/core';
 import ReactHtmlParser	 from 'react-html-parser';
 import {createNewProductFunc} from '../../../../actions/ProductAction';
+import { toast } from 'react-toastify'
+
 import './StepForm.css'
 const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 	const [prevImages, setPrevImages] = useState(proClrData[0].images);
-	const [currentImg, setCurrentImg] = useState(proClrData[0].images[0].src)
+	const [currentImg, setCurrentImg] = useState(proClrData[0].images[0].src);
 	
 	const dispatch = useDispatch();
+
+	const {Prosuccess, proFailed} = useSelector((state) => state.ProdutReducer);
+	console.log(Prosuccess, proFailed)
+	if(Prosuccess){
+        toast.success("Stored Successfully")
+        console.log(Prosuccess);
+	}	
+	if(proFailed){
+		setTimeout(() => dispatch({type:'PRODUCT_FAILED'}), 5000)
+        toast.error("Stored Successfully")
+
+	}
 
 	useEffect (() =>{
 		setPrevImages(proClrData[0].images)
 	},[proClrData])
 
-	const SubmitForm = (e) =>{
-		console.log(proClrData);
-		console.log(productData);
+	const SubmitForm = async(e) =>{
 		let formData = new FormData();
-
 		proClrData.map((prod) =>(
 			prod.images.map((img) =>(
 			formData.append(prod.color, img.imgdata)
@@ -29,7 +40,9 @@ const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 		formData.append('productCata', productData.productCata)
 		formData.append('productSpeci', productData.productSpeci)
 		formData.append('productBrand', productData.productBrand)
-		dispatch(createNewProductFunc(formData));
+		formData.append('productColor', JSON.stringify(proClrData))
+		const response = await dispatch(createNewProductFunc(formData));
+		console.log(response);
 	}
 	const setImageView = (key) =>{
 		setPrevImages(proClrData[key].images)
