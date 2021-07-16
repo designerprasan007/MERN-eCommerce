@@ -1,4 +1,4 @@
-import {createApi, ManageStoreApi, LoginStoreApi} from '../api/StoreApi';
+import {createApi, LoginStoreApi, getStoreDataApi} from '../api/StoreApi';
 export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 	try{
 		await createApi(storedata);
@@ -22,34 +22,13 @@ export const StoreLoginFun = (userdata, history) => async(dispatch, getState) =>
 	}
 }
 
-export const ManageStorefun = (storedata) =>async(dispatch, getState) =>{
-	try{
-		const  {
-			AuthReducer:{userdata}
-		} = getState()
-		const token = userdata?.token;
 
-		const  {
-			PageData:{pagedata}
-		} = getState()
-		
-		await ManageStoreApi(storedata, token) 
-		if(storedata.action === 'Delete'){
-			pagedata.varifiedStoresCount = pagedata.varifiedStoresCount - 1;
-			pagedata.verified = pagedata.verified.filter((item) => item._id !== storedata.id);
-		}else{
-			pagedata.unverifiedStoresCount = pagedata.unverifiedStoresCount - 1;
-			pagedata.unverified = pagedata.unverified.filter((item) => {
-				if(item._id === storedata.id){
-					pagedata.verified.push(item);
-				}
-				return item._id !== storedata.id
-			});
-		}
-		dispatch({type:'PAGE_DATA', payload:pagedata});
-	}
-	catch(err){
-		console.log(err)
-	}
+
+export const StoreDataFunc = () => async(disapatch, getState) =>{
+	const {
+		AuthReducer:{userdata}
+	} = getState();
+	const token = userdata.token;
+	const {data} = await getStoreDataApi(token)
+	disapatch({type:'PRODUCT_DATA', payload:data.pageData});
 }
-

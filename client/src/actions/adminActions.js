@@ -1,3 +1,4 @@
+import { ManageStoreApi} from '../api/StoreApi';
 import {adminLoginApi} from '../api/AdminApi';
 import {adminPages} from '../api/AdminApi'
 export const loginAdminAction = (userdata, history) => async(dispatch) =>{
@@ -10,6 +11,37 @@ export const loginAdminAction = (userdata, history) => async(dispatch) =>{
 	catch(err){
 		// console.log(err.response);
 		dispatch({type:'LOGIN_ERROR', payload:err.response.data.err})
+	}
+}
+
+export const ManageStorefun = (storedata) =>async(dispatch, getState) =>{
+	try{
+		const  {
+			AuthReducer:{userdata}
+		} = getState()
+		const token = userdata?.token;
+
+		const  {
+			PageData:{pagedata}
+		} = getState()
+		
+		await ManageStoreApi(storedata, token) 
+		if(storedata.action === 'Delete'){
+			pagedata.varifiedStoresCount = pagedata.varifiedStoresCount - 1;
+			pagedata.verified = pagedata.verified.filter((item) => item._id !== storedata.id);
+		}else{
+			pagedata.unverifiedStoresCount = pagedata.unverifiedStoresCount - 1;
+			pagedata.unverified = pagedata.unverified.filter((item) => {
+				if(item._id === storedata.id){
+					pagedata.verified.push(item);
+				}
+				return item._id !== storedata.id
+			});
+		}
+		dispatch({type:'PAGE_DATA', payload:pagedata});
+	}
+	catch(err){
+		console.log(err)
 	}
 }
 

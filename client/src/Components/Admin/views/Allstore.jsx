@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useState} from 'react';
 import StoreTable from '../../Commons/StoreTable'
-import {ManageStorefun} from '../../../actions/StoreAction';
+import {ManageStorefun} from '../../../actions/adminActions';
 const Allstore = () =>{
   const [currentTab, setCurrentTab] = useState('Allstores')
 

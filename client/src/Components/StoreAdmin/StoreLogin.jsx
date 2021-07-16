@@ -6,7 +6,7 @@ import {TextField, Button} from '@material-ui/core'
 import './LoginPage.css';
 
 const StoreLogin = ({history}) => {
-	const [logindata, setLoginData] = useState({email:'', password:''});
+	const [logindata, setLoginData] = useState({email:'designerprasan007@gmail.com', password:'Prasanna'});
 	const [error, setError] = useState(false);
 
 	const dispatch = useDispatch();

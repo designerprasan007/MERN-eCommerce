@@ -16,7 +16,7 @@ const App = () =>{
           <Route path="/admin" exact component={MainView} />
           <Route path="/createStore" exact component={AddStore} />
 
-          <Route path='/StoreLogin' exact component={StoreLogin} />
+          <Route path='/' exact component={StoreLogin} />
           <Route path='/storeOwner' exact component={mainStore} />
 
         </Switch>

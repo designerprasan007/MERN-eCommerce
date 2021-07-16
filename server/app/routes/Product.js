@@ -2,7 +2,7 @@ const express = require('express');
 const multer  = require('multer');
 
 const product = express.Router();
-const {getAdminData} = require('../middleware/adminVerify');
+const {getStoreOwnerData} = require('../middleware/adminVerify');
 
 
 const ProductController = require('../controller/ProductController');
@@ -29,7 +29,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 
 
-product.post('/newproduct', upload.any('productImg'), ProductController.createproduct)
+product.post('/newproduct', getStoreOwnerData, upload.any('productImg'), ProductController.createproduct)
 
 // product.post('/manageproduct', getAdminData, ProductController.manageproduct);
 

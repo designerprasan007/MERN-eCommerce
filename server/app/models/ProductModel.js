@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
+const {ObjectId} = mongoose.Schema.Types
 
 const producSchema = Schema({
 	productName:{
@@ -26,6 +27,10 @@ const producSchema = Schema({
 	productColor:{
 		type:Array,
 		required:true
+	},
+	ownerID:{
+		type:ObjectId,
+		ref:'store'	
 	},
 	created:{
 		type: Date,

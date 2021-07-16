@@ -39,8 +39,6 @@ AdminController.adminPages = async(req, res) =>{
 }
 
 AdminController.AdminPages = async(req, res, admindata) =>{
-	const storeCounts = await Store.find();
-
 	const verified = await Store.find({verified:true});
 	const unverified = await Store.find({verified:false});
 	// const graphData = await Store.aggregate([

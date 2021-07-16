@@ -4,6 +4,7 @@ const ProductController = {};
 ProductController.createproduct = async(req, res) =>{
 	let {productName, productModel, productCata, productSpeci, productBrand, productColor} = req.body;
 	const Profiles =  req.files;
+	const ownerID = req.owner._id; 
 	productColor = JSON.parse(productColor);
 	try{
 		productColor.map((res) =>{
@@ -23,7 +24,8 @@ ProductController.createproduct = async(req, res) =>{
 			productSpeci,
 			productCata,
 			productModel,
-			productColor
+			productColor,
+			ownerID 
 		}
 		const store = await product.create(data)
 

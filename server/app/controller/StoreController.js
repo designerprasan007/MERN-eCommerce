@@ -1,7 +1,8 @@
 const Store = require('../models/StoreModel');
 const moment = require('moment');
 const StoreController = {};
-const emailService = require('../utils/emailService') 
+const emailService = require('../utils/emailService'); 
+const Product = require('../models/ProductModel');
 
 StoreController.createStore = async(req, res) =>{
 	const {storeName, ownerEmail, ownerName, ownerNum, storePass, storeCountry, storeState, storeCity, storeAddr} = req.body;
@@ -37,7 +38,6 @@ StoreController.StoreLogin = async(req, res) =>{
 		let token = user.getSignedToken();
 
 		token = 'StoreOwner ' + token;
-
 		const ownerdata = {
 			_id: user._id,
 			storeName:  user.storeName, 
@@ -51,7 +51,7 @@ StoreController.StoreLogin = async(req, res) =>{
 			created:  user.created,
 			token 
 		}
-		res.status(200).json({success:true, ownerdata})
+		StoreController.StoreResponse(req, res, ownerdata);
 	}catch(err){
 		console.log(err);
 		StoreController.serverError(res, err)
@@ -78,6 +78,23 @@ StoreController.manageStore = async(req, res) =>{
 	}
 } 
 
+StoreController.StoreData = async(req, res) =>{
+	try{
+		StoreController.StoreResponse(req, res);
+	}catch(err){
+		console.log(err)
+	}
+}
+
+StoreController.StoreResponse = async(req, res, ownerdata) =>{
+	const ownerID = req?.owner?._id || ownerdata?._id;
+	const products = await Product.find({ownerID})
+	const pageData = [
+		products
+	]
+	res.status(200).json({success:true, ownerdata, pageData})
+
+}
 StoreController.serverError = (res, err) =>{
 	console.log(err);
 	res.status(500).json({success:false, err})

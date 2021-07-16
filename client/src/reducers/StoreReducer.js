@@ -7,7 +7,9 @@ export const StoreReducer = (state=[], action) =>{
 		case 'STORE_CREATED':
 			return {storeSuccess: action.payload}
 		case 'STORE_FAILED':
-			return {stroreFail:action.payload}	
+			return {stroreFail:action.payload}
+		case 'PRODUCT_DATA':
+			return{productData:action.payload}	
 		case 'LOGIN_RESET':
 			return {}; 
 		default:
