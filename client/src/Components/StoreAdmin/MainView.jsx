@@ -25,7 +25,6 @@ const MainView = () =>{
 	}, [dispatch]);
 
 	const StoreData = useSelector((state) => state.StoreReducer);
-	console.log(StoreData.productData.length)
 	return (
 		<div className="StoreHeroBody col-md-12">
 			<Navbar />

@@ -42,3 +42,7 @@
 	height: 50px;
 	width: 50px;
 }
+.formBG{
+    overflow-y: scroll;
+    height: 500px;
+}

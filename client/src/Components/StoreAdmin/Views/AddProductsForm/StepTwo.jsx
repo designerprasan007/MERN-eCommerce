@@ -1,16 +1,14 @@
-import {useState} from 'react';
 import {TextField, Button} from '@material-ui/core';
 import {checkExtension} from '../../../../Helpers/checkExtension';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 import './StepForm.css'
 const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, setProductData}) =>{
-        const [reqError, SetReqError] = useState(false);
-        const [imgError, SetimgError] = useState(false);
-
         const callNextPage = () =>{
-            if(!proClrData[0].price || !proClrData[0].qty || proClrData[0].images.src === '')
-            {
-                SetReqError(true)
+            if(!proClrData.price || !proClrData.qty){
+                toast.info("All Fields Required... !")
                 return
             }
             NextPage();
@@ -31,7 +29,7 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
                 console.log(proClrData[key].images)
             }
             else{
-                SetimgError(true);
+                toast.info("Use Valid Image... !")
                 event.target.value = null;
             }
         }
@@ -51,13 +49,12 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
         }
     return (
         <div className="container-fluid">
+            <ToastContainer />
+            <ToastContainer />
             <div className="row pt-5">
                 <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
-                    <div className="shadow-lg p-3 mb-5 bg-white rounded">
+                    <div className="shadow-lg formBG p-3 mb-5 bg-white rounded">
                         <h3 className="text-center">Add Image</h3>
-                        {reqError && <p className="text-danger">All Fields Required</p>}
-                        {imgError && <p className="text-danger">Please use valid Image</p>}
-
                         <form className="container">
                              {proClrData.length >= 1 && proClrData?.map((clr,key) =>{
                                 return (

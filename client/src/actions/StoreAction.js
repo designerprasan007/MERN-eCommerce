@@ -30,5 +30,6 @@ export const StoreDataFunc = () => async(disapatch, getState) =>{
 	} = getState();
 	const token = userdata.token;
 	const {data} = await getStoreDataApi(token)
-	disapatch({type:'PRODUCT_DATA', payload:data.pageData});
+	console.log(data.pageData[0]);
+	disapatch({type:'PRODUCT_DATA', payload:data.pageData[0]});
 }

@@ -3,10 +3,12 @@ import {TextField, Button, MenuItem} from '@material-ui/core'
 import {Brands} from '../../../../Helpers/Brands';
 import {Colors} from '../../../../Helpers/Colors';
 import Select from 'react-select'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrData}) =>{
 	const [availbrand, SetAvailableBrand] = useState([]);
-	const [reqError, SetReqError] = useState(false)
 	const getBrand = (e) =>{
 		const Catagory = e.target.value;
 		setProductData({...productData, productCata:Catagory})
@@ -19,7 +21,7 @@ const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrDa
 	const callNextPage = () =>{
 		if(!productData.productName || !productData.productModel || !productData.productCata || !productData.productBrand || !productData.productColor)
 		{
-			SetReqError(true)
+            toast.info("All Fields Required... !")
 			return
 		}
 		productData.productColor.map((val) =>{
@@ -32,12 +34,12 @@ const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrDa
 
 	return(
 		<div className="container-fluid">
+			<ToastContainer />
 			<div className="row pt-5">
 				<div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
-					<div className="shadow-lg p-3 mb-5 bg-white rounded">
+					<div className="shadow-lg formBG p-3 mb-5 bg-white rounded">
 						<h3 className="text-center">Add Product</h3>
 						<form className="container">
-						{reqError && <p className="text-danger">All Fields Required</p>}
 						  <div className="form-group py-3">
 							  <TextField label="Product Name" value={productData.productName} onChange={(e) => setProductData({...productData, productName:e.target.value})} type="text" fullWidth required />
 						  </div>

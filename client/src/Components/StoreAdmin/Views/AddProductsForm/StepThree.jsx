@@ -26,7 +26,7 @@ const StepThree = ({PrevPage, NextPage, productData, setProductData}) =>{
         <div className="container-fluid">
             <div className="row pt-5">
                 <div className="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
-                    <div className="shadow-lg p-3 mb-5 bg-white rounded">
+                    <div className="shadow-lg formBG p-3 mb-5 bg-white rounded">
                         <h3 className="text-center">Product Description</h3>
                         <form className="container">
                             {reqError && <p className="text-danger">All Fields Required</p>}

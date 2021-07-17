@@ -4,6 +4,8 @@ import {Button} from '@material-ui/core';
 import ReactHtmlParser	 from 'react-html-parser';
 import {createNewProductFunc} from '../../../../actions/ProductAction';
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import './StepForm.css'
 const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
@@ -14,16 +16,18 @@ const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 
 	const {Prosuccess, proFailed} = useSelector((state) => state.ProdutReducer);
 	console.log(Prosuccess, proFailed)
-	if(Prosuccess){
+	useEffect(() =>{
+		if(Prosuccess.success){
         toast.success("Stored Successfully")
+        toast("Wow so easy!");
         console.log(Prosuccess);
-	}	
-	if(proFailed){
-		setTimeout(() => dispatch({type:'PRODUCT_FAILED'}), 5000)
-        toast.error("Stored Successfully")
+		}	
+		if(proFailed){
+			setTimeout(() => dispatch({type:'PRODUCT_FAILED'}), 5000)
+	        toast.error("Stored Successfully")
 
-	}
-
+		}
+	},[Prosuccess, proFailed, dispatch])
 	useEffect (() =>{
 		setPrevImages(proClrData[0].images)
 	},[proClrData])
@@ -52,7 +56,7 @@ const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
 		setCurrentImg(src);
 	}
 	return (
-		<div className="container-fluid mt-5 shadow-lg p-3 mb-5 bg-white rounded">
+		<div className="container-fluid mt-5 formBG shadow-lg p-3 mb-5 bg-white rounded">
 	        <div className="row pt-2 ">
 	            <h2 className="text-center pb-5">Product Review</h2>
 	            <div className="col-md-8 col-sm-12">

@@ -18,7 +18,9 @@ ProductController.createproduct = async(req, res) =>{
 		      	}
 		    })
 		})
+		const productId = Math.random().toString(36).substring(2);
 		let data = {
+			productId,
 			productName,
 			productBrand,
 			productSpeci,

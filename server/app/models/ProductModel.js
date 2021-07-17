@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 const {ObjectId} = mongoose.Schema.Types
 
 const producSchema = Schema({
+	productId:{
+		type:String,
+		required:true
+	},
 	productName:{
 		type:String,
 		required:true
