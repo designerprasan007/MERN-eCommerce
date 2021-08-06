@@ -7,7 +7,7 @@ import AddStore from './Components/Admin/views/addStore'
 // store related pages
 import StoreLogin from './Components/StoreAdmin/StoreLogin'
 import mainStore from './Components/StoreAdmin/MainView'
-
+import UserLogin from './Components/Users/views/UserLogin'
 const App = () =>{
   return(
     <Router>
@@ -19,6 +19,7 @@ const App = () =>{
           <Route path='/' exact component={StoreLogin} />
           <Route path='/storeOwner' exact component={mainStore} />
 
+          <Route path="/login" exact component={UserLogin} />
         </Switch>
       </Router>
     )

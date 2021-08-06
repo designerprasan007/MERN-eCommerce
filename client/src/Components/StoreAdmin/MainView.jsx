@@ -5,7 +5,8 @@ import './Style.css'
 import Navbar from './Commons/Navbar';
 import SideNav from './Commons/SideNav'
 import Overview from './Views/Overview'
-import AddProduct from './Views/AddProduct'
+import AddProduct from './Views/AddProduct';
+import Allprooducts from './Views/Allproducts';
 const MainView = () =>{
 	const [tabs, setTabs] = useState('Overview');
 
@@ -40,7 +41,7 @@ const MainView = () =>{
 						<AddProduct />
 					}
 					{tabs === 'AllProducts' && 
-						<h1>Products</h1>
+						<Allprooducts products={StoreData?.productData} />
 					}
 					{tabs === 'TodayGraph' && 
 						<h1>graph</h1>

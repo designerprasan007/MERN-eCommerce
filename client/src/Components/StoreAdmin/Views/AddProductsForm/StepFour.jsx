@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import './StepForm.css'
-const StepFour = ({PrevPage, NextPage, productData, proClrData}) =>{
+const StepFour = ({PrevPage, productData, proClrData}) =>{
 	const [prevImages, setPrevImages] = useState(proClrData[0].images);
 	const [currentImg, setCurrentImg] = useState(proClrData[0].images[0].src);
 	

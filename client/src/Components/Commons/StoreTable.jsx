@@ -1,5 +1,5 @@
 import DataTable from 'react-data-table-component';
-
+import './tableStyle.css';
 const StoreTable = ({columns, data, title}) =>{
   return(
     <div className="pt-5">
@@ -10,6 +10,8 @@ const StoreTable = ({columns, data, title}) =>{
             Clicked
             pagination
             dense
+            striped={true}
+            responsive={true}
           />
     </div>
     )
