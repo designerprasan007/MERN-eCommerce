@@ -7,15 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import './StepForm.css'
 const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, setProductData}) =>{
         const callNextPage = () =>{
-            if(!proClrData.price || !proClrData.qty){
-                toast.info("All Fields Required... !")
-                return
-            }
+            console.log(proClrData)
+            const alldata = proClrData.map((clr) => clr.price === '' || clr.qty === '' ? 'fail' : 'success' ).toString()
+            console.log(alldata);  
             NextPage();
     }
     const handleCount = (key, event) =>{
         const values = [...proClrData]
-        const num = parseInt(event.target.value) 
+        const num = event.target.value.length > 0 ? parseInt(event.target.value) : 0; 
         values[key][event.target.name] = num
         setProClrData(values);
     }

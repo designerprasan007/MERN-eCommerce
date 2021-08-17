@@ -17,14 +17,14 @@ const StepFour = ({PrevPage, productData, proClrData}) =>{
 	const {Prosuccess, proFailed} = useSelector((state) => state.ProdutReducer);
 	console.log(Prosuccess, proFailed)
 	useEffect(() =>{
-		if(Prosuccess.success){
+		if(Prosuccess?.success){
         toast.success("Stored Successfully")
         toast("Wow so easy!");
         console.log(Prosuccess);
 		}	
 		if(proFailed){
 			setTimeout(() => dispatch({type:'PRODUCT_FAILED'}), 5000)
-	        toast.error("Stored Successfully")
+	        toast.error("Something went wrong please try again")
 
 		}
 	},[Prosuccess, proFailed, dispatch])
@@ -45,8 +45,7 @@ const StepFour = ({PrevPage, productData, proClrData}) =>{
 		formData.append('productSpeci', productData.productSpeci)
 		formData.append('productBrand', productData.productBrand)
 		formData.append('productColor', JSON.stringify(proClrData))
-		const response = await dispatch(createNewProductFunc(formData));
-		console.log(response);
+		await dispatch(createNewProductFunc(formData));
 	}
 	const setImageView = (key) =>{
 		setPrevImages(proClrData[key].images)
