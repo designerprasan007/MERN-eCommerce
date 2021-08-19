@@ -2,6 +2,9 @@ import { useState } from 'react';
 import ReactHtmlParser	 from 'react-html-parser';
 import {Button} from '@material-ui/core';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
+import {checkExtension} from '../../../Helpers/checkExtension';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 import './Style.css';
 const  EditShowProduct = ({productParams}) =>{
@@ -20,16 +23,34 @@ const  EditShowProduct = ({productParams}) =>{
     const confirmDelete = () =>{
         console.log('okay')
     }
-    const ChangeCurrentImg = () =>{
+    const ChangeCurrentImg = (event) =>{
         if(editAble === "false"){
             return true
         }
+        // const {dataset} = event.target
+
+        // console.log(event.target.src, dataset.key,dataset.obj, event.target.nextSibling);
+        event.target.nextSibling.click()
+    }
+    const updateNewImg = (event) =>{
+        if(event.target.files[0]) {
+            const check = checkExtension(event.target.files[0])
+            if(check){
+               
+            }
+            else{
+                toast.info("Use Valid Image... !")
+                event.target.value = null;
+            }
+        }
+        console.log(event.target.files[0])
     }
     return(
         <>
         {
             productParams.process === 'delete' ?
                 <>
+                <ToastContainer />
                 <h1>You sure you want to delete?</h1> 
                 <button className="btn btn-sm btn-danger" onClick={confirmDelete}>Delete</button>
                 </>
@@ -71,15 +92,19 @@ const  EditShowProduct = ({productParams}) =>{
                             {Product?.productColor?.map((img, key) =>{
                                 return(
                                     <div key={key}>
-                                        <p className="">Color: {img.color}</p>
-                                        <p>Price: <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
-                                        <p>Qty: <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
-                                        <p>Images</p>
+                                        <div className="ProductDetail">
+                                            <p className=""><b>Color:</b> {img.color}</p>
+                                            <p><b>Price:</b> <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
+                                            <p><b>Qty:</b> <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
+                                            <h3>Images</h3>
+                                            <p className="text-warning">{editAble === "true" ? "Click Image to change" : ""}</p>
+                                        </div>
                                         <div className="row">
                                             {img.images.map((src, key2) =>{
                                                 return(
                                                     <div className="col py-3" key={key2}>
-                                                        <img className="editshowImg img-fluid" src={ImgSrc+src} alt="" />
+                                                        <img className="editshowImg img-fluid" onClick={ChangeCurrentImg} src={ImgSrc+src} alt="" />
+                                                        <input type="file" hidden={true} onChange={updateNewImg} data-key={key2} data-obj={key} />
                                                     </div>
                                                 )
                                             })}

@@ -5,3 +5,16 @@
     height: 200px;
     width: 100%;
 }
+.ProductDetail{
+    line-height: 10px;
+}
+.editBtn{
+	right: 10px !important;
+    position: absolute !important;
+}
+.editContent{
+	border: 2px solid black;
+    padding: 6px;
+    border-radius: 10px;
+	line-height: 25px !important;
+}

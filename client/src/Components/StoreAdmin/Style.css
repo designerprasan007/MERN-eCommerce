@@ -5,12 +5,3 @@
 }
 .heroMain{
 }
-.editBtn{
-	right: 10px !important;
-    position: absolute !important;
-}
-.editContent{
-	border: 2px solid black;
-    padding: 6px;
-    border-radius: 10px;
-}
