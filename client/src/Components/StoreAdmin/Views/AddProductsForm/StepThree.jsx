@@ -2,9 +2,7 @@
 import {useState} from 'react';
 import {Button} from '@material-ui/core'
 import './StepForm.css'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import Editor from '../../Partials/Editor';
 
 const StepThree = ({PrevPage, NextPage, productData, setProductData}) =>{
     const [reqError, SetReqError] = useState(false)
@@ -32,20 +30,7 @@ const StepThree = ({PrevPage, NextPage, productData, setProductData}) =>{
                             {reqError && <p className="text-danger">All Fields Required</p>}
                             <p>Product Specification and Details</p>
                             <div className="form-group py-3">
-                                 <CKEditor
-                                        editor={ ClassicEditor }
-                                        data={productData.productSpeci}
-                                        onChange={ ( event, editor ) => {
-                                            const data = editor.getData();
-                                            setdescription(data)
-                                        } }
-                                        onBlur={ ( event, editor ) => {
-                                            console.log( 'Blur.', editor );
-                                        } }
-                                        onFocus={ ( event, editor ) => {
-                                            console.log( 'Focus.', editor );
-                                        } }
-                                    />
+                                <Editor setdescription={setdescription} productData={productData} />
                                 <div className="text-center pt-3">
                                     <Button className="prevBtn" variant="contained" color="primary" onClick={PrevPage} size="large" >Prev</Button>
                                     <Button variant="contained" color="primary"  onClick={() => callNextPage()} size="large" >Next</Button>

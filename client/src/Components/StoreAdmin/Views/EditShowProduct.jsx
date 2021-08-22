@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactHtmlParser	 from 'react-html-parser';
 import {Button} from '@material-ui/core';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import {checkExtension} from '../../../Helpers/checkExtension';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-
+import Compress from "react-image-file-resizer";
+import Editor from '../Partials/Editor';
 import './Style.css';
 const  EditShowProduct = ({productParams}) =>{
-    const Product = productParams?.Product[0] ? productParams?.Product[0] : {}; 
-
+    let Product = productParams?.Product[0] ? productParams?.Product[0] : {}; 
+    const [tempProClr, setTempProClr] = useState([]);
     const ImgSrc = process.env.REACT_APP_ImgSrc;
     const [editAble, setEditAble] = useState("false");
 
@@ -27,23 +28,47 @@ const  EditShowProduct = ({productParams}) =>{
         if(editAble === "false"){
             return true
         }
-        // const {dataset} = event.target
-
-        // console.log(event.target.src, dataset.key,dataset.obj, event.target.nextSibling);
         event.target.nextSibling.click()
     }
+    useEffect(() => {
+        console.log(tempProClr);
+      }, [tempProClr]);
+
     const updateNewImg = (event) =>{
-        if(event.target.files[0]) {
+        const file = event.target.files[0]
+        if(file) {
             const check = checkExtension(event.target.files[0])
             if(check){
-               
+                Compress.imageFileResizer(
+                    file,
+                    480,
+                    480,
+                    "JPEG",
+                    70,
+                    0,
+                    (uri) => {
+                        event.target.previousSibling.src = URL.createObjectURL(uri)
+                        const {dataset} = event.target;
+                        const newImgSet = {
+                            src: URL.createObjectURL(uri),
+                            imgdata: uri,
+                            keyId: dataset.key,
+                            objId: dataset.obj
+                        }
+                        setTempProClr(prevState => [...prevState, newImgSet]);
+                    },
+                    "file"
+                  );
+                // console.log(event.target.src, dataset.key,dataset.obj, event.target.dataset.key);
             }
             else{
                 toast.info("Use Valid Image... !")
                 event.target.value = null;
             }
         }
-        console.log(event.target.files[0])
+    }
+    const setdescription = (data) =>{
+        // setProductData({...productData, productSpeci:data})
     }
     return(
         <>
@@ -83,9 +108,14 @@ const  EditShowProduct = ({productParams}) =>{
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Description</h3>
-                                    <div>
-                                        { ReactHtmlParser(Product?.productSpeci) }
-                                    </div>
+                                    {editAble === "true" ? 
+                                        <div className="editortext">
+                                            <Editor setdescription={setdescription} editSpeci={Product?.productSpeci}/>
+                                        </div> : 
+                                        <div>
+                                            { ReactHtmlParser(Product?.productSpeci) }
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <h3>Product Colors and Details</h3>
@@ -94,10 +124,10 @@ const  EditShowProduct = ({productParams}) =>{
                                     <div key={key}>
                                         <div className="ProductDetail">
                                             <p className=""><b>Color:</b> {img.color}</p>
-                                            <p><b>Price:</b> <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
-                                            <p><b>Qty:</b> <span suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
+                                            <p><b>Price:</b> <span suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
+                                            <p><b>Qty:</b> <span suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
                                             <h3>Images</h3>
-                                            <p className="text-warning">{editAble === "true" ? "Click Image to change" : ""}</p>
+                                            <p className="">{editAble === "true" ? "Click Image to change" : ""}</p>
                                         </div>
                                         <div className="row">
                                             {img.images.map((src, key2) =>{

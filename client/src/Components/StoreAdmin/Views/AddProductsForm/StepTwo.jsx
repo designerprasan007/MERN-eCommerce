@@ -3,6 +3,7 @@ import {checkExtension} from '../../../../Helpers/checkExtension';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import Compress from "react-image-file-resizer";
 
 import './StepForm.css'
 const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, setProductData}) =>{
@@ -20,12 +21,23 @@ const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, se
     }
 
     const handleImage = (key,imgkey, event) =>{
-        if(event.target.files[0]) {
+        const file = event.target.files[0]; 
+        if(file) {
             const check = checkExtension(event.target.files[0])
             if(check){
-                proClrData[key].images[imgkey].src = URL.createObjectURL(event.target.files[0]);
-                proClrData[key].images[imgkey].imgdata =event.target.files[0];
-                console.log(proClrData[key].images)
+                Compress.imageFileResizer(
+                    file,
+                    480,
+                    480,
+                    "JPEG",
+                    70,
+                    0,
+                    (uri) => {
+                        proClrData[key].images[imgkey].src = URL.createObjectURL(uri);
+                        proClrData[key].images[imgkey].imgdata = uri;
+                    },
+                    "file"
+                  );
             }
             else{
                 toast.info("Use Valid Image... !")
