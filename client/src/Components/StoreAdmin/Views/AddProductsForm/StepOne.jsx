@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 
-const StepOne = ({NextPage, productData, setProductData, proClrData, setProClrData}) =>{
+const StepOne = ({NextPage, productData, setProductData, proClrData}) =>{
 	const [availbrand, SetAvailableBrand] = useState([]);
 	const getBrand = (e) =>{
 		const Catagory = e.target.value;

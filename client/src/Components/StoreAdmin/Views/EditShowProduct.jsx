@@ -13,6 +13,7 @@ const  EditShowProduct = ({productParams}) =>{
     const [tempProClr, setTempProClr] = useState([]);
     const ImgSrc = process.env.REACT_APP_ImgSrc;
     const [editAble, setEditAble] = useState("false");
+    const [editProduct, setEditProduct] = useState({productName:'', productModel:'', productCata:'', productSpeci:'', productBrand:''});
 
     const HandleFiels = () =>{
         if(editAble === "false"){
@@ -68,7 +69,20 @@ const  EditShowProduct = ({productParams}) =>{
         }
     }
     const setdescription = (data) =>{
+        console.log(data);
         // setProductData({...productData, productSpeci:data})
+    }
+    const handleEditPriceQty = (event) =>{
+        const keyname = event.target.dataset.value;
+        const objkey = event.target.dataset.obj
+        const textval = event.target.innerText;
+        let final = [];
+        
+        final.push({...final, [keyname]: textval, objkey:objkey});
+
+
+
+        console.log(editProduct, final);
     }
     return(
         <>
@@ -92,19 +106,19 @@ const  EditShowProduct = ({productParams}) =>{
                             <div className="row">
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Name: </h3>
-                                    <h5 suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{Product?.productName}</h5>
+                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productName:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productName" contentEditable={editAble}>{Product?.productName}</h5>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Model: </h3>
-                                    <h5 suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{Product?.productModel}</h5>
+                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productModel:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productModel" contentEditable={editAble}>{Product?.productModel}</h5>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Brand</h3>
-                                    <h5 suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{Product?.productBrand}</h5>
+                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productBrand:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productBrand" contentEditable={editAble}>{Product?.productBrand}</h5>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Catagory</h3>
-                                    <h5 suppressContentEditableWarning="true" className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{Product?.productCata}</h5>
+                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productCata:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productCata" contentEditable={editAble}>{Product?.productCata}</h5>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Description</h3>
@@ -124,8 +138,8 @@ const  EditShowProduct = ({productParams}) =>{
                                     <div key={key}>
                                         <div className="ProductDetail">
                                             <p className=""><b>Color:</b> {img.color}</p>
-                                            <p><b>Price:</b> <span suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
-                                            <p><b>Qty:</b> <span suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
+                                            <p><b>Price:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="price" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
+                                            <p><b>Qty:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="qty" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
                                             <h3>Images</h3>
                                             <p className="">{editAble === "true" ? "Click Image to change" : ""}</p>
                                         </div>
