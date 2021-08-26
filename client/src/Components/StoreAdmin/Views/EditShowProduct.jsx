@@ -14,7 +14,7 @@ const  EditShowProduct = ({productParams}) =>{
     const ImgSrc = process.env.REACT_APP_ImgSrc;
     const [editAble, setEditAble] = useState("false");
     const [editProduct, setEditProduct] = useState({productName:'', productModel:'', productCata:'', productSpeci:'', productBrand:''});
-
+    const [editProClr, setEditProclr] = useState([])
     const HandleFiels = () =>{
         if(editAble === "false"){
             setEditAble("true");
@@ -76,13 +76,15 @@ const  EditShowProduct = ({productParams}) =>{
         const keyname = event.target.dataset.value;
         const objkey = event.target.dataset.obj
         const textval = event.target.innerText;
-        let final = [];
-        
-        final.push({...final, [keyname]: textval, objkey:objkey});
+        let final = {
+            [keyname]: textval, 
+            objkey:objkey
+        };
+        setEditProclr(prevState => [...prevState, final])
+    }
+    const handleEditSubmit = () =>{
+        console.log(editProduct, editProClr, tempProClr);
 
-
-
-        console.log(editProduct, final);
     }
     return(
         <>
@@ -138,8 +140,8 @@ const  EditShowProduct = ({productParams}) =>{
                                     <div key={key}>
                                         <div className="ProductDetail">
                                             <p className=""><b>Color:</b> {img.color}</p>
-                                            <p><b>Price:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="price" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
-                                            <p><b>Qty:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="qty" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
+                                            <p><b>Price:</b> <span onKeyPress={(e) => handleEditPriceQty(e)} data-value="price" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
+                                            <p><b>Qty:</b> <span onKeyPress={(e) => handleEditPriceQty(e)} data-value="qty" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
                                             <h3>Images</h3>
                                             <p className="">{editAble === "true" ? "Click Image to change" : ""}</p>
                                         </div>
@@ -158,7 +160,7 @@ const  EditShowProduct = ({productParams}) =>{
                                     )
                             })}
                         </div>
-                         {editAble === "true" ? <button className="btn btn-sm btn-success" >Save</button> : ""}
+                         {editAble === "true" ? <button className="btn btn-sm btn-success" onClick={handleEditSubmit} >Save</button> : ""}
                     </div>
                 </>
             }
