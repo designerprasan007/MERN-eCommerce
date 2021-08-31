@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ReactHtmlParser	 from 'react-html-parser';
 import {Button} from '@material-ui/core';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
@@ -7,13 +8,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Compress from "react-image-file-resizer";
 import Editor from '../Partials/Editor';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import {EditProductFunc} from '../../../actions/ProductAction';
 import './Style.css';
-const  EditShowProduct = ({productParams}) =>{
+const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
     let Product = productParams?.Product[0] ? productParams?.Product[0] : {}; 
+    const dispatch = useDispatch(); 
     const [tempProClr, setTempProClr] = useState([]);
     const ImgSrc = process.env.REACT_APP_ImgSrc;
     const [editAble, setEditAble] = useState("false");
-    const [editProduct, setEditProduct] = useState({productName:'', productModel:'', productCata:'', productSpeci:'', productBrand:''});
+    const [editProduct, setEditProduct] = useState({productId: Product?._id, productName:'', productModel:'', productCata:'', productSpeci:'', productBrand:''});
     const [editProClr, setEditProclr] = useState([])
     const HandleFiels = () =>{
         if(editAble === "false"){
@@ -31,13 +35,10 @@ const  EditShowProduct = ({productParams}) =>{
         }
         event.target.nextSibling.click()
     }
-    useEffect(() => {
-        console.log(tempProClr);
-      }, [tempProClr]);
-
     const updateNewImg = (event) =>{
         const file = event.target.files[0]
         if(file) {
+            var temparr = [...tempProClr]; 
             const check = checkExtension(event.target.files[0])
             if(check){
                 Compress.imageFileResizer(
@@ -53,14 +54,21 @@ const  EditShowProduct = ({productParams}) =>{
                         const newImgSet = {
                             src: URL.createObjectURL(uri),
                             imgdata: uri,
-                            keyId: dataset.key,
-                            objId: dataset.obj
+                            keyId: parseInt(dataset.key),
+                            objId: parseInt(dataset.obj),
+                            fieldname: dataset.color
                         }
+                        tempProClr.filter((img, index) =>{
+                            if(img.keyId === dataset.key && img.objId === dataset.obj){
+                                temparr.splice(index, 1);
+                                setTempProClr(temparr);
+                            }
+                            return true
+                        })
                         setTempProClr(prevState => [...prevState, newImgSet]);
                     },
                     "file"
                   );
-                // console.log(event.target.src, dataset.key,dataset.obj, event.target.dataset.key);
             }
             else{
                 toast.info("Use Valid Image... !")
@@ -68,26 +76,57 @@ const  EditShowProduct = ({productParams}) =>{
             }
         }
     }
-    const setdescription = (data) =>{
-        console.log(data);
-        // setProductData({...productData, productSpeci:data})
-    }
     const handleEditPriceQty = (event) =>{
+        var temparr = [...editProClr]; 
         const keyname = event.target.dataset.value;
-        const objkey = event.target.dataset.obj
-        const textval = event.target.innerText;
+        const objkey = parseInt(event.target.dataset.obj)
+        const textval = parseInt(event.target.innerText);
         let final = {
-            [keyname]: textval, 
-            objkey:objkey
+            keyname: keyname, 
+            objkey:objkey,
+            textval : textval
         };
+        editProClr.filter((img, index) =>{
+            if(img.keyname === keyname && img.objkey === objkey){
+                temparr.splice(index, 1);
+                setEditProclr(temparr);
+            }
+            return true
+        })
         setEditProclr(prevState => [...prevState, final])
     }
-    const handleEditSubmit = () =>{
+    const setdescription = (data) =>{
+        setEditProduct({...editProduct, productSpeci:data})
+    }
+    const handleEditSubmit = async () =>{
         console.log(editProduct, editProClr, tempProClr);
+        let formData = new FormData();
+        tempProClr.map((img) =>(
+			formData.append(img.fieldname, img.imgdata)
+        ))
+		formData.append('productName', editProduct.productName)
+		formData.append('productModel', editProduct.productModel)
+		formData.append('productCata', editProduct.productCata)
+		formData.append('productSpeci', editProduct.productSpeci)
+		formData.append('productBrand', editProduct.productBrand)
+		formData.append('productId', editProduct.productId)
+		formData.append('productColor', JSON.stringify(editProClr))
+		formData.append('productqty', JSON.stringify(tempProClr))
 
+        await dispatch(EditProductFunc(formData))
+    }
+    const CloseModal = () =>{
+        HandleFiels();
+        closeBtn();
     }
     return(
         <>
+        <Modal.Header>
+            <Modal.Title>
+                {editshowdelete.process === 'delete' ?  'Delete Product':'Edit/View Product'}
+                <button className="editBtn btn btn-sm btn-warning me-3" onClick={CloseModal}><CloseRoundedIcon /></button>
+                </Modal.Title>
+        </Modal.Header>
         {
             productParams.process === 'delete' ?
                 <>
@@ -105,6 +144,7 @@ const  EditShowProduct = ({productParams}) =>{
                         </div>}  
                     <div className="container ps-5">
                         <div className="col-md-12 col-sm-12 text-start">
+                            <h3 className="pb-3">Product Id: {Product?.productId}</h3>
                             <div className="row">
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Name: </h3>
@@ -126,7 +166,7 @@ const  EditShowProduct = ({productParams}) =>{
                                     <h3>Product Description</h3>
                                     {editAble === "true" ? 
                                         <div className="editortext">
-                                            <Editor setdescription={setdescription} editSpeci={Product?.productSpeci}/>
+                                            {Product?.productSpeci !== '' ? <Editor setdescription={setdescription} editSpeci={Product?.productSpeci}/> : ''}
                                         </div> : 
                                         <div>
                                             { ReactHtmlParser(Product?.productSpeci) }
@@ -140,8 +180,8 @@ const  EditShowProduct = ({productParams}) =>{
                                     <div key={key}>
                                         <div className="ProductDetail">
                                             <p className=""><b>Color:</b> {img.color}</p>
-                                            <p><b>Price:</b> <span onKeyPress={(e) => handleEditPriceQty(e)} data-value="price" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
-                                            <p><b>Qty:</b> <span onKeyPress={(e) => handleEditPriceQty(e)} data-value="qty" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
+                                            <p><b>Price:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="price" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.price}</span></p>
+                                            <p><b>Qty:</b> <span onKeyUp={(e) => handleEditPriceQty(e)} data-value="qty" suppressContentEditableWarning="true" data-obj={key} className={editAble === "true" ? "editContent" : ""} contentEditable={editAble}>{img.qty}</span></p>
                                             <h3>Images</h3>
                                             <p className="">{editAble === "true" ? "Click Image to change" : ""}</p>
                                         </div>
@@ -150,7 +190,7 @@ const  EditShowProduct = ({productParams}) =>{
                                                 return(
                                                     <div className="col py-3" key={key2}>
                                                         <img className="editshowImg img-fluid" onClick={ChangeCurrentImg} src={ImgSrc+src} alt="" />
-                                                        <input type="file" hidden={true} onChange={updateNewImg} data-key={key2} data-obj={key} />
+                                                        <input type="file" hidden={true} onChange={updateNewImg} data-color={img.color} data-key={key2} data-obj={key} />
                                                     </div>
                                                 )
                                             })}

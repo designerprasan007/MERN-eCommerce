@@ -1,4 +1,4 @@
-import {CreateProductApi} from '../api/ProductsApi';
+import {CreateProductApi, EditProductApi} from '../api/ProductsApi';
 export const createNewProductFunc = (formData) => async(dispatch, getState) =>{
 	try{
 		const  {
@@ -14,5 +14,19 @@ export const createNewProductFunc = (formData) => async(dispatch, getState) =>{
 		console.log(err);
 		dispatch({type:'PRODUCT_FAILED', payload:err})
 
+	}
+}
+
+export const EditProductFunc = (formData) => async(dispatch, getState) =>{
+	try{
+		console.log('action')
+		const {
+			AuthReducer:{userdata}
+		} = getState();
+		const token = userdata?.token;
+		const {data} = await EditProductApi(formData, token)
+		console.log(data);
+	}catch(err){
+		console.log(err);
 	}
 }

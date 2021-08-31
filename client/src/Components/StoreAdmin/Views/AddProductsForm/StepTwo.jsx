@@ -8,9 +8,11 @@ import Compress from "react-image-file-resizer";
 import './StepForm.css'
 const StepTwo = ({PrevPage, NextPage, productData, proClrData, setProClrData, setProductData}) =>{
         const callNextPage = () =>{
-            console.log(proClrData)
             const alldata = proClrData.map((clr) => clr.price === '' || clr.qty === '' ? 'fail' : 'success' ).toString()
-            console.log(alldata);  
+            if(alldata === 'fail'){
+                toast.error("Fill all Data... !")
+                return
+            }  
             NextPage();
     }
     const handleCount = (key, event) =>{

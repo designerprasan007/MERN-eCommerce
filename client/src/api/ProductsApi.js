@@ -9,3 +9,9 @@ export const CreateProductApi = (formData, token) =>axios.post(`${productUrl}/ne
 		  Authorization: token 
 	}}
 )
+export const EditProductApi = (formData, token) => axios.patch(`${productUrl}/editProduct`, formData, {
+	headers:{
+		'Content-Type': 'Multipart/form-data',
+		Authorization:token
+	}
+})

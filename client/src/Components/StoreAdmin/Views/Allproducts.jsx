@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux'
 import StoreTable from '../../Commons/StoreTable'
 import { Modal } from 'react-bootstrap';
 import EditShowProduct from './EditShowProduct';
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 const Allproducts = (products) => {
     const [editshowdelete, setEditShow] = useState({status:false, process:'', productId:'', Product:[]});
     const handleeditshowClose = () => setEditShow({status:false, process:'', productId:'', Product:[]});
@@ -38,12 +37,6 @@ const Allproducts = (products) => {
             allowOverflow: true,
             button: true,
           },
-        // {
-        //     cell:(row) => <button id={row._id + '-edit'} onClick={handleProduct} className="btn btn-sm btn-primary">Edit</button>,
-        //     ignoreRowClick: true,
-        //     allowOverflow: true,
-        //     button: true,
-        //   },
           {
             cell:(row) => <button id={row._id + '-delete'} onClick={handleProduct} className="btn btn-sm btn-danger">Delete</button>,
             ignoreRowClick: true,
@@ -66,14 +59,8 @@ const Allproducts = (products) => {
         <div>
             <StoreTable columns={columns} title="Products"  data={Product}/>
             <Modal show={editshowdelete.status} onHide={handleeditshowClose}>
-                <Modal.Header>
-                    <Modal.Title>
-                      {editshowdelete.process === 'delete' ?  'Delete Product':'Edit/View Product'}
-                      <button className="editBtn btn btn-sm btn-warning me-3" onClick={handleeditshowClose}><CloseRoundedIcon /></button>
-                      </Modal.Title>
-                </Modal.Header>
                 <Modal.Body className="text-center">
-                    <EditShowProduct productParams={editshowdelete} />
+                    <EditShowProduct Modal={Modal} productParams={editshowdelete} editshowdelete={editshowdelete} closeBtn={handleeditshowClose} />
                 </Modal.Body>
             </Modal>
         </div>

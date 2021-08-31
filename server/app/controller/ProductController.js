@@ -38,6 +38,23 @@ ProductController.createproduct = async(req, res) =>{
 
 }
 
+ProductController.Editproduct = async(req, res) =>{
+	const Profiles =  req.files;
+	try{
+		Profiles.map((val) =>{
+			console.log(val);
+			// productColor.map((cle) =>{
+		    // 	if(cle.color === val.fieldname ){
+		    //   	 	cle.images.push(val.filename)
+		    //   	}
+		    // })
+		})
+		console.log(req.body);
+		res.send('okay');
+	}catch(err){
+
+	}
+}
 
 ProductController.serverError = async(err, res) =>{
 		res.status(500).json({success:false, err});		
