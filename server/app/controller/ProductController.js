@@ -1,3 +1,4 @@
+const Product = require('../models/ProductModel');
 const product = require('../models/ProductModel')
 const ProductController = {};
 
@@ -40,16 +41,51 @@ ProductController.createproduct = async(req, res) =>{
 
 ProductController.Editproduct = async(req, res) =>{
 	const Profiles =  req.files;
+	let { productId,
+		productName,
+		productBrand,
+		productSpeci,
+		productCata,
+		productModel,
+		productimg,
+		productColor} = req.body;
 	try{
+		productColor = JSON.parse(productColor);
+		productimg = JSON.parse(productimg)
+		const finalImgset = [];
 		Profiles.map((val) =>{
-			console.log(val);
-			// productColor.map((cle) =>{
-		    // 	if(cle.color === val.fieldname ){
-		    //   	 	cle.images.push(val.filename)
-		    //   	}
-		    // })
+			productimg.map((img) =>{
+				finalImgset.push({
+					src: val.filename,
+					objkey: img.objId,
+					keyId: img.keyId,
+
+				})
+			})
 		})
-		console.log(req.body);
+		console.log(finalImgset);
+
+		// console.log(req.body);
+		for(var i=0; i<=productColor.length; i++){
+			var condition = "productColor."+ productColor[i].objkey +"."+productColor[i].keyname
+			console.log(condition, 'conditoasa');
+			const updateproduct = await Product.updateOne({_id:productId}, {
+				$set:{
+					[condition]:productColor[i].textval
+				}
+			});
+		}
+		for(var i=0; i<=finalImgset.length; i++){
+			var condition = "productColor"+ finalImgset[i].images +"."+finalImgset[i].keyname
+			console.log(condition, 'conditoasa');
+			const updateproduct = await Product.updateOne({_id:productId}, {
+				$set:{
+					[condition]:finalImgset[i].textval
+				}
+			});
+		}
+		// const pro = await Product.findById(productId)
+		// console.log(pro);
 		res.send('okay');
 	}catch(err){
 

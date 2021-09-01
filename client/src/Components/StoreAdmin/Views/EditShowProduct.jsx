@@ -111,7 +111,7 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
 		formData.append('productBrand', editProduct.productBrand)
 		formData.append('productId', editProduct.productId)
 		formData.append('productColor', JSON.stringify(editProClr))
-		formData.append('productqty', JSON.stringify(tempProClr))
+		formData.append('productimg', JSON.stringify(tempProClr))
 
         await dispatch(EditProductFunc(formData))
     }
