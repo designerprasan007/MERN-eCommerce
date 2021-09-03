@@ -1,5 +1,6 @@
 const Product = require('../models/ProductModel');
 const product = require('../models/ProductModel')
+const fs = require('fs');
 const ProductController = {};
 
 ProductController.createproduct = async(req, res) =>{
@@ -52,43 +53,52 @@ ProductController.Editproduct = async(req, res) =>{
 	try{
 		productColor = JSON.parse(productColor);
 		productimg = JSON.parse(productimg)
-		const finalImgset = [];
-		Profiles.map((val) =>{
-			productimg.map((img) =>{
-				finalImgset.push({
-					src: val.filename,
-					objkey: img.objId,
-					keyId: img.keyId,
+        const maxLength = Math.max(Profiles.length, productimg.length)
+        const finalImgset = [];
+        let prevproduct = await Product.findById(productId);
 
-				})
-			})
-		})
-		console.log(finalImgset);
+        for (let i = 0; i < maxLength; i++) {
+            fs.unlink("./productImg/"+prevproduct.productColor[productimg[i].objId].images[productimg[i].keyId], function (err) {            
+                if (err) {                                                 
+                    console.error(err);                                    
+                }                                                          
+               console.log(prevproduct.productColor[productimg[i].objId].images[productimg[i].keyId], 'File has been Deleted');                           
+            });    
+          finalImgset.push({
+            ...(Profiles[i] ?? {}),
+            ...(productimg[i] ?? {}),
+          })
+        }
 
-		// console.log(req.body);
-		for(var i=0; i<=productColor.length; i++){
+		for(var i=0; i<productColor.length; i++){
 			var condition = "productColor."+ productColor[i].objkey +"."+productColor[i].keyname
-			console.log(condition, 'conditoasa');
-			const updateproduct = await Product.updateOne({_id:productId}, {
+			await Product.updateOne({_id:productId}, {
 				$set:{
 					[condition]:productColor[i].textval
 				}
 			});
 		}
-		for(var i=0; i<=finalImgset.length; i++){
-			var condition = "productColor"+ finalImgset[i].images +"."+finalImgset[i].keyname
-			console.log(condition, 'conditoasa');
-			const updateproduct = await Product.updateOne({_id:productId}, {
+        
+		for(var i=0; i<finalImgset.length; i++){
+            var condition = "productColor."+ finalImgset[i].objId +".images."+finalImgset[i].keyId
+			await Product.updateOne({_id:productId}, {
 				$set:{
-					[condition]:finalImgset[i].textval
+					[condition]:finalImgset[i].filename
 				}
 			});
 		}
-		// const pro = await Product.findById(productId)
-		// console.log(pro);
+        await Product.updateOne({_id:productId}, {
+            $set:{
+                productName,
+                productBrand,
+                productSpeci,
+                productCata,
+                productModel
+            }
+        })
 		res.send('okay');
 	}catch(err){
-
+        console.log(err);
 	}
 }
 

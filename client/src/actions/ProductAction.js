@@ -5,7 +5,6 @@ export const createNewProductFunc = (formData) => async(dispatch, getState) =>{
 			AuthReducer:{userdata}
 		} = getState()
 		const token = userdata?.token;
-		console.log(token);
 		const {data} = await CreateProductApi(formData, token);
 		console.log(data.success)
 		dispatch({type:'PRODUCT_STORED', payload:data})
