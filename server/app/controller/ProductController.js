@@ -87,18 +87,19 @@ ProductController.Editproduct = async(req, res) =>{
 				}
 			});
 		}
-        await Product.updateOne({_id:productId}, {
-            $set:{
-                productName,
-                productBrand,
-                productSpeci,
-                productCata,
-                productModel
-            }
-        })
-		res.send('okay');
+        const updated = await Product.findOneAndUpdate({_id:productId}, 
+			{$set:{
+                productName : productName ? productName : prevproduct.productName,
+                productBrand : productBrand ? productBrand : prevproduct.productBrand,
+                productSpeci : productSpeci ? productSpeci : prevproduct.productSpeci,
+                productCata : productCata ? productCata : prevproduct.productCata,
+                productModel : productModel ? productModel : prevproduct.productModel
+            }}, {new:true}) 
+		console.log(updated.productColor[0].images);
+		res.send(updated);
 	}catch(err){
         console.log(err);
+		ProductController.serverError(err, res);
 	}
 }
 

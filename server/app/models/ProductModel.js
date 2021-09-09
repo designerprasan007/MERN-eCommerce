@@ -36,6 +36,10 @@ const producSchema = Schema({
 		type:ObjectId,
 		ref:'store'	
 	},
+	deleted:{
+		type:Boolean,
+		default:false	
+	},
 	created:{
 		type: Date,
 		required: true,

@@ -99,7 +99,6 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
         setEditProduct({...editProduct, productSpeci:data})
     }
     const handleEditSubmit = async () =>{
-        console.log(editProduct, editProClr, tempProClr);
         let formData = new FormData();
         tempProClr.map((img) =>(
 			formData.append(img.fieldname, img.imgdata)

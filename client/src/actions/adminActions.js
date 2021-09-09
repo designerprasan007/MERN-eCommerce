@@ -17,14 +17,10 @@ export const loginAdminAction = (userdata, history) => async(dispatch) =>{
 export const ManageStorefun = (storedata) =>async(dispatch, getState) =>{
 	try{
 		const  {
-			AuthReducer:{userdata}
-		} = getState()
-		const token = userdata?.token;
-
-		const  {
+			AuthReducer:{userdata},
 			PageData:{pagedata}
 		} = getState()
-		
+		const token = userdata?.token;
 		await ManageStoreApi(storedata, token) 
 		if(storedata.action === 'Delete'){
 			pagedata.varifiedStoresCount = pagedata.varifiedStoresCount - 1;
