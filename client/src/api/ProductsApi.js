@@ -15,3 +15,9 @@ export const EditProductApi = (formData, token) => axios.patch(`${productUrl}/ed
 		Authorization:token
 	}
 })
+
+export const DeleteProductApi = (id, token) => axios.delete(`${productUrl}/deleteProduct?id=`+id, {
+	headers:{
+		Authorization:token
+	}
+})

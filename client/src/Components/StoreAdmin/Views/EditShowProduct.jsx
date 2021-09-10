@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Compress from "react-image-file-resizer";
 import Editor from '../Partials/Editor';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import {EditProductFunc} from '../../../actions/ProductAction';
+import {EditProductFunc, DeleteProductFunc} from '../../../actions/ProductAction';
 import './Style.css';
 const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
     let Product = productParams?.Product[0] ? productParams?.Product[0] : {}; 
@@ -17,7 +17,7 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
     const [tempProClr, setTempProClr] = useState([]);
     const ImgSrc = process.env.REACT_APP_ImgSrc;
     const [editAble, setEditAble] = useState("false");
-    const [editProduct, setEditProduct] = useState({productId: Product?._id, productName:'', productModel:'', productCata:'', productSpeci:'', productBrand:''});
+    const [editProduct, setEditProduct] = useState({productId: Product?._id, productName:'', productModel:'', productSpeci:''});
     const [editProClr, setEditProclr] = useState([])
     const HandleFiels = () =>{
         if(editAble === "false"){
@@ -26,8 +26,11 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
             setEditAble("false");
         }
     }
-    const confirmDelete = () =>{
-        console.log('okay')
+    const confirmDelete = async() =>{
+        console.log('okay', Product._id)
+        const id = Product._id;
+        await dispatch(DeleteProductFunc(id))
+    
     }
     const ChangeCurrentImg = (event) =>{
         if(editAble === "false"){
@@ -98,6 +101,11 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
     const setdescription = (data) =>{
         setEditProduct({...editProduct, productSpeci:data})
     }
+
+    const CloseModal = () =>{
+        HandleFiels();
+        closeBtn();
+    }
     const handleEditSubmit = async () =>{
         let formData = new FormData();
         tempProClr.map((img) =>(
@@ -105,18 +113,13 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
         ))
 		formData.append('productName', editProduct.productName)
 		formData.append('productModel', editProduct.productModel)
-		formData.append('productCata', editProduct.productCata)
 		formData.append('productSpeci', editProduct.productSpeci)
-		formData.append('productBrand', editProduct.productBrand)
 		formData.append('productId', editProduct.productId)
 		formData.append('productColor', JSON.stringify(editProClr))
 		formData.append('productimg', JSON.stringify(tempProClr))
 
         await dispatch(EditProductFunc(formData))
-    }
-    const CloseModal = () =>{
-        HandleFiels();
-        closeBtn();
+        CloseModal()
     }
     return(
         <>
@@ -155,11 +158,12 @@ const  EditShowProduct = ({productParams, closeBtn, Modal, editshowdelete}) =>{
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Brand</h3>
-                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productBrand:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productBrand" contentEditable={editAble}>{Product?.productBrand}</h5>
+                                    <h5>{Product?.productBrand}</h5>
+
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Catagory</h3>
-                                    <h5 suppressContentEditableWarning="true" onKeyUp={(e) => setEditProduct({...editProduct,  productCata:e.target.innerText})} className={editAble === "true" ? "editContent" : ""} data-value="productCata" contentEditable={editAble}>{Product?.productCata}</h5>
+                                    <h5>{Product?.productCata}</h5>
                                 </div>
                                 <div className="col-md-6 col-sm-6">
                                     <h3>Product Description</h3>

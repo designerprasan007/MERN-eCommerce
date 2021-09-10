@@ -8,8 +8,6 @@ export const StoreReducer = (state=[], action) =>{
 			return {storeSuccess: action.payload}
 		case 'STORE_FAILED':
 			return {stroreFail:action.payload}
-		case 'PRODUCT_DATA':
-			return{productData:action.payload}	
 		case 'LOGIN_RESET':
 			return {}; 
 		default:

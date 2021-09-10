@@ -29,6 +29,7 @@ const AddStore = ({handleStore}) =>{
 
 	const hideAlert = () =>{
 		setStroreres({...stroreres, status:false, result:'', message:''})
+		window.location.reload();
 	}
 
 	const validateNum = (e) =>{

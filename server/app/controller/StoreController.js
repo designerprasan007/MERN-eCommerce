@@ -66,6 +66,7 @@ StoreController.manageStore = async(req, res) =>{
 				verified: true
 			})
 			const manageStore = true;
+			console.log(store);
 			emailService(store, ' ', manageStore);
 		}	
 		else{
@@ -88,7 +89,7 @@ StoreController.StoreData = async(req, res) =>{
 
 StoreController.StoreResponse = async(req, res, ownerdata) =>{
 	const ownerID = req?.owner?._id || ownerdata?._id;
-	const products = await Product.find({ownerID})
+	const products = await Product.find({ $and: [ { ownerID }, { deleted: false}]})
 	const pageData = [
 		products
 	]

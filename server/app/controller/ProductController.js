@@ -44,9 +44,7 @@ ProductController.Editproduct = async(req, res) =>{
 	const Profiles =  req.files;
 	let { productId,
 		productName,
-		productBrand,
 		productSpeci,
-		productCata,
 		productModel,
 		productimg,
 		productColor} = req.body;
@@ -90,9 +88,7 @@ ProductController.Editproduct = async(req, res) =>{
         const updated = await Product.findOneAndUpdate({_id:productId}, 
 			{$set:{
                 productName : productName ? productName : prevproduct.productName,
-                productBrand : productBrand ? productBrand : prevproduct.productBrand,
                 productSpeci : productSpeci ? productSpeci : prevproduct.productSpeci,
-                productCata : productCata ? productCata : prevproduct.productCata,
                 productModel : productModel ? productModel : prevproduct.productModel
             }}, {new:true}) 
 		console.log(updated.productColor[0].images);
@@ -101,6 +97,15 @@ ProductController.Editproduct = async(req, res) =>{
         console.log(err);
 		ProductController.serverError(err, res);
 	}
+}
+ProductController.Deleteproduct = async(req, res) =>{
+	const id = req.query.id
+	const updated = await Product.findOneAndUpdate({_id:id},
+		{$set:{
+			deleted:true
+		}}, {new:true})
+		console.log(updated)
+	res.send(updated);
 }
 
 ProductController.serverError = async(err, res) =>{

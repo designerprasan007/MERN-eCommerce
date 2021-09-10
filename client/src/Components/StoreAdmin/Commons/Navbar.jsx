@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({history}) =>{
 	const LogoutFun = () =>{
 		localStorage.removeItem("Userinfo");
-		window.location.href = 'http://localhost:3000/adminlogin'
+		window.location.href = 'http://localhost:3000/'
 	}
     const classes = useStyles();
 	return(

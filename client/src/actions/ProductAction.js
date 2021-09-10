@@ -1,4 +1,4 @@
-import {CreateProductApi, EditProductApi} from '../api/ProductsApi';
+import {CreateProductApi, EditProductApi, DeleteProductApi} from '../api/ProductsApi';
 export const createNewProductFunc = (formData) => async(dispatch, getState) =>{
 	try{
 		const  {
@@ -20,7 +20,7 @@ export const EditProductFunc = (formData) => async(dispatch, getState) =>{
 	try{
 		let {
 			AuthReducer:{userdata},
-			StoreReducer:{productData}
+			ProdutReducer:{productData}
 		} = getState();
 		const token = userdata?.token;
 		const {data} = await EditProductApi(formData, token)
@@ -38,8 +38,24 @@ export const EditProductFunc = (formData) => async(dispatch, getState) =>{
 			return true	
 		});
 		dispatch({type:'PRODUCT_DATA', payload:productData});
-
 	}catch(err){
 		console.log(err);
+	}
+}
+
+export const DeleteProductFunc= (id) => async (dispatch, getState) =>{
+	try{
+		let {
+			AuthReducer:{userdata},
+			ProdutReducer:{productData}
+		} = getState(); 
+		const token = userdata.token;
+		const {data} = await DeleteProductApi(id, token);
+		// console.log(data); 
+		productData = productData.filter((val) => val._id !== data._id);
+		dispatch({type:'PRODUCT_DATA', payload:productData});
+	}
+	catch(err) {
+			console.log(err)
 	}
 }

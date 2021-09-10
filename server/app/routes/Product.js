@@ -32,6 +32,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 product.post('/newproduct', getStoreOwnerData, upload.any('productImg'), ProductController.createproduct)
 
 product.patch('/editProduct', getStoreOwnerData, upload.any('productImg'), ProductController.Editproduct)
+product.delete('/deleteProduct', getStoreOwnerData, ProductController.Deleteproduct)
 // product.post('/manageproduct', getAdminData, ProductController.manageproduct);
 
 // product.post('/productLogin', productController.productLogin)

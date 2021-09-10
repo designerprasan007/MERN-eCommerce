@@ -7,7 +7,7 @@ const Allproducts = (products) => {
     const [editshowdelete, setEditShow] = useState({status:false, process:'', productId:'', Product:[]});
     const handleeditshowClose = () => setEditShow({status:false, process:'', productId:'', Product:[]});
 
-    const Products = useSelector((state) => state.StoreReducer.productData);
+    const Products = useSelector((state) => state.ProdutReducer.productData);
 
     const Product = products?.products;
     const columns = [
