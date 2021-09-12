@@ -9,7 +9,7 @@ StoreController.createStore = async(req, res) =>{
 	let created = moment().format('MMMM Do YYYY, h:mm:ss a');
 	try{
 		const preStore = await Store.findOne({ownerEmail});
-		if(preStore) return res.status(400).json({success:false, err:'Email already taken'})
+		if(preStore) return res.status(422).json({success:false, err:'Email already taken'})
 		const store = await Store.create({storeName, storePass, ownerName, ownerEmail, storeCountry, storeState, storeCity, storeAddr, ownerNum})
 		const manageStore = false;
 		emailService(req.body, created, manageStore);

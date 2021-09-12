@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 
-const main = async (userdata, created, manageStore) =>{
+const main = async (userdata, created, manageStore, ) =>{
 	let testAccount = await nodemailer.createTestAccount();
 
   // create reusable transporter object using the default SMTP transport
@@ -16,34 +16,35 @@ const main = async (userdata, created, manageStore) =>{
 	  });
 
 	  // send mail with defined transport object
-	  if(!manageStore){
-	  	let info = await transporter.sendMail({
-	    from: process.env.SENDINBLUE_EMAIL, // sender address
-	    to: 'designerprasan007@gmail.com', // list of receivers
-	    subject: "New Ebay Account", // Subject line
-	    text: "New Ebay Account", // plain text body
-	    html:require('./RegisterTemplate')({
-	    		userdata, created
-            })
-	    });
-	    console.log("Message sent: %s", info.messageId);
-  	  	console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-	  }
-	  else{
+	if(userdata.regUser){
 		let info = await transporter.sendMail({
-	    from: process.env.SENDINBLUE_EMAIL, // sender address
-	    to: userdata.ownerEmail, // list of receivers
-	    subject: "Store Accepted", // Subject line
-	    text: "Store Accepted", // plain text body
-	    html:require('./AcceptTemplate')({
-	    		userdata
-            })
-	    });
-	  	console.log("Message sent: %s", info.messageId);
-  	  	console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-	  }
-      
-	
+			from: process.env.SENDINBLUE_EMAIL, // sender address
+			to: userdata.email, // list of receivers
+			subject: "E-buy Verify Email", // Subject line
+			text: "E-buy Verify Email", // plain text body
+			html:require('./VerifyTemplate')({
+					userdata
+				})
+			});
+			console.log("Message sent: %s", info.messageId);
+				console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+		
+	} 
+	else{
+	  	let info = await transporter.sendMail({
+			from: process.env.SENDINBLUE_EMAIL, // sender address
+			to: !manageStore ? 'designerprasan007@gmail.com' : userdata.ownerEmail, // list of receivers
+			subject:!manageStore ? "New Ebay Account" : "Store Accepted", // Subject line
+			text: !manageStore ? "New Ebay Account" : "Store Accepted", // plain text body
+			html: !manageStore ? require('./RegisterTemplate')({
+					userdata, created
+				}) : require('./AcceptTemplate')({
+					userdata
+				})
+			});
+			console.log("Message sent: %s", info.messageId);
+			console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+	  }  
 }
 
 

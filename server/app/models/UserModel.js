@@ -7,15 +7,17 @@ const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
     email:{
-        require:true,
+        type:String,
+        required:true,
         trim:true,
         lowercase: true
     },
     password:{
-        require:true,
+        type:String,
+        required:true,
         trim:true
     },
-    profile:[{
+    profile:{
         firstname:{
             type:String
         },
@@ -25,8 +27,8 @@ const UserSchema = Schema({
         contactNum:{
             type:String
         }
-    }],
-    metaData:[{
+    },
+    metaData:{
         verified:{
             type:Boolean,
             default:false,
@@ -38,7 +40,7 @@ const UserSchema = Schema({
             type:Boolean,
             default:false
         }
-    }],
+    },
     addressData:[{
         country:{
             type:String,
@@ -67,16 +69,16 @@ const UserSchema = Schema({
 
 
 UserSchema.pre('save', async function(next){
-	if(!this.isModified('storePass')){
+	if(!this.isModified('password')){
 		next();
 	}
 	const salt = await bcrypt.genSalt(10);
-	this.storePass = await bcrypt.hash(this.storePass, salt)
+	this.password = await bcrypt.hash(this.password, salt)
 	next();
 })
 
 UserSchema.methods.MatchPass = async function(password){
-	return await bcrypt.compare(password, this.storePass);
+	return await bcrypt.compare(password, this.password);
 }
 
 UserSchema.methods.getSignedToken = function(){
