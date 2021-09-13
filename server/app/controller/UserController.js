@@ -32,9 +32,8 @@ UserController.register = async(req, res) =>{
                 verifiedUrl: randomtext
             }
         }
-        console.log(data);
-        // let createUser = await new User(data)
-        // await createUser.save()
+        let createUser = await new User(data)
+        await createUser.save()
         res.status(200).json({success: true})
     }
     catch(err){
@@ -42,6 +41,19 @@ UserController.register = async(req, res) =>{
         UserController.serverError(err, res)
     }
 
+}
+UserController.verifyEmail = async(req, res) =>{
+    const {email, verifyid} =  req.body;
+    const user = await User.findOneAndUpdate({$and: [{email: email}, {"metaData.verifiedUrl": verifyid}] }, {
+        $set:{
+            "metaData.verified":true
+        }
+    })
+    if(!user){
+        res.status(403).json({success:false, error:"Forbidden! You don't have access"})
+    }else{
+        res.status(200).json({success: true})
+    }
 }
 
 UserController.serverError = (err, res) =>{

@@ -4,5 +4,6 @@ const user = express.Router();
 const UserController = require('../controller/UserController');
 
 user.post('/register', UserController.register)
+user.post('/verifyemail', UserController.verifyEmail)
 
 module.exports = user

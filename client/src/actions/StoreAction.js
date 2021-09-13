@@ -1,5 +1,5 @@
 import {createApi, LoginStoreApi, getStoreDataApi} from '../api/StoreApi';
-export const AddStoreAction = (storedata, history) => async(dispatch) =>{
+export const AddStoreAction = (storedata) => async(dispatch) =>{
 	try{
 		await createApi(storedata);
 		dispatch({type:'STORE_CREATED', payload:'CREATED'})
@@ -10,7 +10,7 @@ export const AddStoreAction = (storedata, history) => async(dispatch) =>{
 	}
 }
 
-export const StoreLoginFun = (userdata, history) => async(dispatch, getState) =>{
+export const StoreLoginFun = (userdata, history) => async(dispatch) =>{
 	try{
 		const {data} = await  LoginStoreApi(userdata); 
 		dispatch({type:'LOGIN_ADMIN', payload:data.ownerdata})

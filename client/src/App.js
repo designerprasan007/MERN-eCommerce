@@ -9,6 +9,7 @@ import StoreLogin from './Components/StoreAdmin/StoreLogin'
 import mainStore from './Components/StoreAdmin/MainView'
 // user related
 import Home from './Components/Users/views/Home'
+import Verifyemail from './Components/Users/views/Verifyemail';
 
 const App = () =>{
   const isAuthenticated = localStorage.getItem('Userinfo');
@@ -22,7 +23,7 @@ const App = () =>{
           <ProtectedRoute path="/storeOwner" Component={mainStore} isAuth={isAuth} />
           <Route path='/' exact component={StoreLogin} />
           <Route path="/userpage" exact component={Home} />
-          
+          <Route path="/verifyemail" exact component={Verifyemail} />
         </Switch>
 
       </Router>

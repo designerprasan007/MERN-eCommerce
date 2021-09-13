@@ -9,15 +9,19 @@ const Register = ({Button, TextField}) =>{
     const [fieldError, setfieldError] = useState({status:false, error:""})
     const [regFields, setregFields] = useState({firstname:'prasannna', lastname:'N', email:'designerprasan007@gmail.com', phone:'', password:'prasanna', confPassword:'prasanna'});
     const [clearError, setclearError] = useState();
+	const [userres, setuserres] = useState({status:false, result:false, title:'', message:''});
+
     const dispatch = useDispatch();
 
     const {userSuccess, userFail} = useSelector((state) => state.UserReducer)
     useEffect(() =>{
         if(userSuccess){
-            console.log('success')
+    		setuserres({...userres, status:true, result:true, title:'Success', message:'Registeration finished please check given mail to verify account'})
         }
         if(userFail){
             console.log(userFail)
+            setfieldError({...fieldError, status:true, error:userFail})
+
         } // eslint-disable-next-line
     },[userSuccess, userFail])
     useEffect(() => {
@@ -34,6 +38,10 @@ const Register = ({Button, TextField}) =>{
           };// eslint-disable-next-line
       }, [clearError]);
 
+    const hideAlert = () =>{
+		setuserres({...userres, status:false, result:'', message:''})
+		window.location.reload();
+	}    
     const handleSubmit = () =>{
         if(regFields.password !== regFields.confPassword){
             setfieldError({...fieldError, status:true, error:"Password not match"})
@@ -58,6 +66,8 @@ const Register = ({Button, TextField}) =>{
     }
     return(
         <>
+		{userres.status && <Sweetalert stroreresponse={userres} hideAlert={hideAlert} />}
+
         <h3 className="text-center">Register</h3>
         {fieldError.status && <p className="text-danger">{fieldError.error}</p>}
         <form className="container pt-5 ">
