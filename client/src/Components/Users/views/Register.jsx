@@ -1,15 +1,25 @@
 import { useState, useEffect } from 'react'
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import{RegisterUserFun} from '../../../actions/UserAction'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import './Home.css'
+import './Home.css';
+import Sweetalert from '../../Commons/SweetAlert';
 const Register = ({Button, TextField}) =>{
     const [fieldError, setfieldError] = useState({status:false, error:""})
-    const [regFields, setregFields] = useState({firstname:'', lastname:'', email:'', phone:'', password:'', confPassword:''});
+    const [regFields, setregFields] = useState({firstname:'prasannna', lastname:'N', email:'designerprasan007@gmail.com', phone:'', password:'prasanna', confPassword:'prasanna'});
     const [clearError, setclearError] = useState();
     const dispatch = useDispatch();
 
+    const {userSuccess, userFail} = useSelector((state) => state.UserReducer)
+    useEffect(() =>{
+        if(userSuccess){
+            console.log('success')
+        }
+        if(userFail){
+            console.log(userFail)
+        } // eslint-disable-next-line
+    },[userSuccess, userFail])
     useEffect(() => {
         let timerId;
         if (clearError > 0) {

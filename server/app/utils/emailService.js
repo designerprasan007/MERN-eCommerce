@@ -20,8 +20,8 @@ const main = async (userdata, created, manageStore, ) =>{
 		let info = await transporter.sendMail({
 			from: process.env.SENDINBLUE_EMAIL, // sender address
 			to: userdata.email, // list of receivers
-			subject: "E-buy Verify Email", // Subject line
-			text: "E-buy Verify Email", // plain text body
+			subject: "I-buy Verify Email", // Subject line
+			text: "I-buy Verify Email", // plain text body
 			html:require('./VerifyTemplate')({
 					userdata
 				})
@@ -35,7 +35,7 @@ const main = async (userdata, created, manageStore, ) =>{
 			from: process.env.SENDINBLUE_EMAIL, // sender address
 			to: !manageStore ? 'designerprasan007@gmail.com' : userdata.ownerEmail, // list of receivers
 			subject:!manageStore ? "New Ebay Account" : "Store Accepted", // Subject line
-			text: !manageStore ? "New Ebay Account" : "Store Accepted", // plain text body
+			text: !manageStore ? "New I-bay Account" : "Store Accepted", // plain text body
 			html: !manageStore ? require('./RegisterTemplate')({
 					userdata, created
 				}) : require('./AcceptTemplate')({

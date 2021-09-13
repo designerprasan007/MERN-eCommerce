@@ -104,7 +104,7 @@ module.exports = ({userdata, created}) => {
                     <div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
             
                         <!-- START CENTERED WHITE CONTAINER -->
-                        <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">welcome to E-bay below is your password and email.</span>
+                        <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">welcome to I-bay below is your password and email.</span>
                         <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
             
                         <!-- START MAIN CONTENT AREA -->
@@ -114,7 +114,7 @@ module.exports = ({userdata, created}) => {
                                 <tr>
                                 <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi Prasanna, Thank you for buying Store</p>
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><b>E-bay</b> Account Details. </p>
+                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><b>I-bay</b> Account Details. </p>
                                     <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Below is your account details, use this Email and your password for Login </p>
                                   <table>
                                       <tr>

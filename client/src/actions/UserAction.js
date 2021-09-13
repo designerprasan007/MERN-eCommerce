@@ -3,10 +3,9 @@ import {RegisterUserApi} from '../api/UserApi';
 
 export const RegisterUserFun = (FormData) => async(dispatch) =>{
     try{
-        const {data} = RegisterUserApi(FormData);
-        console.log(data);
+        await RegisterUserApi(FormData);
+        dispatch({type:'USER_STORED', payload:'STORED'})
     }catch(err){
-        console.log(err);
+        dispatch({type:'USER_FAILED', payload:err.response.data.error})
     }
-
 }

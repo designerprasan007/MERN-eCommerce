@@ -10,7 +10,7 @@ UserController.register = async(req, res) =>{
     let emailUrl = process.env.VERIFY_EMAIL_URL;
     try{
         const preUser = await User.findOne({email});
-        if (preUser) return res.status(422).json({success:false, error:"email already exist"});
+        if (preUser) return res.status(409).json({success:false, error:"email already exist"});
         const randomtext = (Math.random() + 1).toString(36).substring(2);
         const verifyUrl = `${emailUrl}/?email=${email}&verifyid=${randomtext}`
         const userData = {
@@ -19,7 +19,7 @@ UserController.register = async(req, res) =>{
             regUser:true,
             verifyUrl,
         }
-        emailService(userData, created, '');
+        // emailService(userData, created, '');
         let data = {
             email,
             password,
@@ -33,9 +33,9 @@ UserController.register = async(req, res) =>{
             }
         }
         console.log(data);
-        let createUser = await new User(data)
-        await createUser.save()
-        res.send('okay');
+        // let createUser = await new User(data)
+        // await createUser.save()
+        res.status(200).json({success: true})
     }
     catch(err){
         console.log(err);
