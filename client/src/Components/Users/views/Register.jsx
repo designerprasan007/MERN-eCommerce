@@ -72,22 +72,22 @@ const Register = ({Button, TextField}) =>{
         {fieldError.status && <p className="text-danger">{fieldError.error}</p>}
         <form className="container pt-5 ">
             <div className="row">
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group py-3">
                         <TextField label="Firstname" onChange={(e) => setregFields({...regFields, firstname:e.target.value})} value={regFields.firstname} type="text" placeholder="Firstname.." fullWidth required  />
                     </div>  
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group py-3">
                         <TextField label="Lastname" type="text" onChange={(e) => setregFields({...regFields, lastname:e.target.value})} value={regFields.lastname} placeholder="Lastname.." fullWidth required  />
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group py-3">
                         <TextField label="Email" type="email" onChange={(e) => setregFields({...regFields, email:e.target.value})} value={regFields.email} placeholder="Email.." fullWidth required  />
                     </div>  
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group py-3">
                         <PhoneInput
                         className="myclass"
@@ -98,12 +98,12 @@ const Register = ({Button, TextField}) =>{
                         />
                     </div>
                 </div>  
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group">
                         <TextField label="Password" onChange={(e) => setregFields({...regFields, password:e.target.value})} value={regFields.password} type="password" placeholder="Enter Password" fullWidth required  />
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     <div className="form-group">
                         <TextField label="Confirm Password" onChange={(e) => setregFields({...regFields, confPassword:e.target.value})} value={regFields.confPassword} type="password" placeholder="Confirm Password" fullWidth required  />
                     </div>    
