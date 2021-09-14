@@ -1,5 +1,5 @@
 import  React, {useState} from 'react';
-import {loginAdminAction} from '../../../actions/adminActions'
+import {LoginUserFun} from '../../../actions/UserAction'
 import {useDispatch, useSelector} from 'react-redux';
 
 const Login = ({Button, TextField, history}) =>{
@@ -20,7 +20,7 @@ const Login = ({Button, TextField, history}) =>{
 			return
 		}
 		else{
-			dispatch(loginAdminAction(logindata, history));
+			dispatch(LoginUserFun(logindata, history));
 		}
 	}
     return(

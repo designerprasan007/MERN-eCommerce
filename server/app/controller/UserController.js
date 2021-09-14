@@ -56,6 +56,11 @@ UserController.verifyEmail = async(req, res) =>{
     }
 }
 
+UserController.LoginUser = async(req, res) =>{
+    const {email, password} = req.body;
+    console.log(email, password);
+    res.status(200).json({success:true, user:'prasanna'})
+}
 UserController.serverError = (err, res) =>{
     console.log(err);
     res.status(500).json({success:false, error:err})
