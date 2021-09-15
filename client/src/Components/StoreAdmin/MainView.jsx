@@ -8,18 +8,11 @@ import Overview from './Views/Overview'
 import AddProduct from './Views/AddProduct';
 import Allprooducts from './Views/Allproducts';
 const MainView = () =>{
-	const [tabs, setTabs] = useState('Overview');
+    const [activeTab, setActiveTab] = useState(0);
 
 	const dispatch = useDispatch();
+	const tabs = ['Overview', 'AddNewProduct', 'AllProducts', 'TodayGraph', 'TodaySales'];
 
-	const currentTab = (e) =>{
-		setTabs(e.target.id);
-		var x = document.getElementsByClassName("active");
-		  [].forEach.call(x, function(el) {
-		    el.classList.remove("active");
-		  });
-		e.target.parentElement.classList.add("active");
-	}
 
 	useEffect(() =>{
 		dispatch(StoreDataFunc());
@@ -31,22 +24,22 @@ const MainView = () =>{
 			<Navbar />
 			<div className="row">
 				<div className="col-md-3">
-					<SideNav currentTab={currentTab} />
+				<SideNav activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs}/>
 				</div>
 				<div className="col-md-9 heroMain">
-					{tabs === 'Overview' && 
+					{tabs[activeTab] === 'Overview' && 
 						<Overview StoreData={StoreData} />
 					}
-					{tabs === 'AddNewProduct' && 
+					{tabs[activeTab] === 'AddNewProduct' && 
 						<AddProduct />
 					}
-					{tabs === 'AllProducts' && 
+					{tabs[activeTab] === 'AllProducts' && 
 						<Allprooducts products={StoreData?.productData} />
 					}
-					{tabs === 'TodayGraph' && 
+					{tabs[activeTab] === 'TodayGraph' && 
 						<h1>graph</h1>
 					}
-					{tabs === 'TodaySales' && 
+					{tabs[activeTab] === 'TodaySales' && 
 						<h1>TodaySales</h1>
 					}
 				</div>

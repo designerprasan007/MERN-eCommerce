@@ -4,6 +4,8 @@ export const UserReducer = (state = [], action) =>{
             return({userSuccess: action.payload})
         case 'USER_FAILED':
             return({userFail : action.payload})
+        case 'LOGIN_FAILED':
+            return({loginFail: action.payload})
         default:
             return state
     }   

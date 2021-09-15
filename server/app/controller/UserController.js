@@ -64,8 +64,10 @@ UserController.LoginUser = async(req, res) =>{
         const user = await User.findOne({email});
         if(!user) return res.status(401).json({success:false, error:"Invalid Email"});
         const isMatch = await user.MatchPass(password);
-        if(!isMatch) return res.status(403).json({success:false, error:"Forbidden!"})
+        if(!isMatch) return res.status(401).json({success:false, error:"Incorrect Password!"})
         
+        if(!user.metaData.verified) return res.status(403).json({success:false, error:"Email Not verified"});
+
         const token = user.getSignedToken();
 
         let userdata = {

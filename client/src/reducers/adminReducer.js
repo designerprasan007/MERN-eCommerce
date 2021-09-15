@@ -4,6 +4,8 @@ export const AuthReducer =(state={}, action) => {
 			return{userdata:action.payload};
 		case 'REGISTER_ERROR':
 			return{error:action.payload};
+		case 'LOGIN_SUCCESS':
+				return({userdata: action.payload});
 		case 'LOGIN_ERROR':
 			return{loginerror: action.payload};
 		case 'LOGIN_RESET':

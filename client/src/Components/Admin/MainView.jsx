@@ -9,26 +9,16 @@ import Allstore from './views/Allstore';
 import Overview from './views/Overview';
 import './Style.css'
 const MainView = () =>{
-	const [tabs, setTabs] = useState('Overview');
-
+    const [activeTab, setActiveTab] = useState(0);
 	const dispatch = useDispatch();
-
 	useEffect(() =>{
 		dispatch(getPagedata())
 	},[dispatch])
 	
 	const {pagedata} = useSelector((state) => state.PageData);
-
-
 	// navbar tabs
-	const currentTab = (e) =>{
-		setTabs(e.target.id);
-		var x = document.getElementsByClassName("active");
-		  [].forEach.call(x, function(el) {
-		    el.classList.remove("active");
-		  });
-		e.target.parentElement.classList.add("active");
-	}
+	const tabs = ['Overview', 'Stores', 'Products', 'Daily', 'TodaySales'];
+
 
 	return(
 		<div className="mainBody">
@@ -36,22 +26,22 @@ const MainView = () =>{
 			<div className="col-md-12">
 				<div className="row no-gutters">
 					<div className="col-md-3 SideNavBar">
-						<SideNav  currentTab = {currentTab}/>
+						<SideNav activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs}/>
 					</div>
 					<div className="col-md-9">
-						{tabs === 'Overview' && 
+						{tabs[activeTab] === 'Overview' && 
 							<Overview pagedata={pagedata} />
 						}
-						{tabs === 'Stores' && 
+						{tabs[activeTab] === 'Stores' && 
 							<Allstore pagedata={pagedata} />
 						}
-						{tabs === 'Products' && 
+						{tabs[activeTab] === 'Products' && 
 							<h1>Products</h1>
 						}
-						{tabs === 'Daily' && 
+						{tabs[activeTab] === 'Daily' && 
 							<h1>graph</h1>
 						}
-						{tabs === 'TodaySales' && 
+						{tabs[activeTab] === 'TodaySales' && 
 							<h1>TodaySales</h1>
 						}
 					</div>

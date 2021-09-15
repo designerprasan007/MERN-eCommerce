@@ -23,12 +23,11 @@ export const VerifyemailFun = (FormData, history) => async(dispatch) =>{
 export const LoginUserFun = (FormData, history) => async(dispatch) =>{
     try{
         const {data} = await LoginUserApi(FormData)
-        console.log(data);
-        // history.push('/')
+        localStorage.setItem('Userinfo', JSON.stringify(data.userdata))
+		history.push('/shopping')
         dispatch({type:'LOGIN_SUCCESS', payload:data});
     }
     catch(err){
-        console.log(err);
-        dispatch({type:'LOGIN_FAILED', payload:err.response.data.error})
+        dispatch({type:'LOGIN_ERROR', payload:err.response.data.error})
     }
 }
