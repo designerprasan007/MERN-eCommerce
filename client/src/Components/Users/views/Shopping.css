@@ -29,8 +29,22 @@
     margin: 10px;
 }
 .CatagoriesSection{
-    top: 11%;
+    top: 13%;
     position: absolute;
-    height: 6%;
+    height: 8%;
+    overflow-x: auto;
+    white-space: nowrap; 
+    width: 100%;
     /* background-color: #0981e3; */
+}
+.CatagoriesSection::-webkit-scrollbar {
+    display: none;
+}
+.catagoryImg{
+	height: 100%;
+	width: 100%;
+}
+.catagoryImgdiv{
+	width: 50px;
+	display: inline-block;
 }
