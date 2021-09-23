@@ -1,39 +1,23 @@
-import tvimg from '../../../Assets/images/tv.jpeg';
-import fridge from '../../../Assets/images/fridge.jpeg';
-import laptopimg from '../../../Assets/images/laptop.png';
-import mobileimg from '../../../Assets/images/mobile.jpeg';
-import fashionimg from '../../../Assets/images/fashion.png';
+import styled from "styled-components"
 
+import CatagoryItem from './CatagoryItem';
+import {categories} from '../../../Helpers/SliderData';
+const Container = styled.div`
+    display:flex;
+    padding: 20px;
+    justify-content: space-between;
+`
 
+console.log(categories);
 const Catagories = () =>{
     return(
-        <>
-            <div className="testDiv">
-                <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={mobileimg}  alt="mobile"/>
-                </div>
-                <div className=" catagoryImgdiv">
-                    <img className="catagoryImg" src={tvimg}  alt="tvimg"/>
-                </div>
-                <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={laptopimg}  alt="laptop"/>
-                </div>
-                <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={fridge}  alt="fridge"/>
-                </div>
-                <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={fashionimg}  alt="fashionimg"/>
-                </div>
-                <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={fashionimg}  alt="fashionimg"/>
-                </div> <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={fashionimg}  alt="fashionimg"/>
-                </div> <div className="catagoryImgdiv">
-                    <img className="catagoryImg" src={fashionimg}  alt="fashionimg"/>
-                </div>
-
-            </div>
-        </>
+        <Container >
+            {categories.map((cata, index) =>{
+                return(
+                        <CatagoryItem key={index} catagory={cata} /> 
+                )
+            })}
+        </Container>
     )
 }
 
