@@ -11,6 +11,8 @@ import mainStore from './Components/StoreAdmin/MainView'
 import Home from './Components/Users/views/Home'
 import Verifyemail from './Components/Users/views/Verifyemail';
 import Shopping from './Components/Users/views/Shopping';
+import ProductList from "./Components/Users/views/ProductList";
+
 const App = () =>{
   const isAuthenticated = localStorage.getItem('Userinfo');
   const isAuth = isAuthenticated?.length > 1 ? true : false
@@ -25,6 +27,7 @@ const App = () =>{
           <Route path="/userpage" exact component={Home} />
           <Route path="/verifyemail" exact component={Verifyemail} />
           <Route path="/shopping" exact component={Shopping} />
+          <Route path="/productList" exact component={ProductList} />
 
         </Switch>
 

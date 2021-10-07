@@ -6,6 +6,8 @@ import Announcement from '../Partials/Announcement';
 import Products from '../Partials/Products';
 import './Shopping.css'
 import Slider  from '../Partials/Slider';
+import NewsLetter from '../Partials/NewsLetter';
+import Footer from '../Partials/Footer';
 const Shopping = () =>{
     return(
         <div className="">
@@ -14,6 +16,8 @@ const Shopping = () =>{
             <Slider />
             <Catagories />
             <Products />
+            <NewsLetter />
+            <Footer />
         </div>
     )
 }
