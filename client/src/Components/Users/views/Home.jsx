@@ -6,7 +6,7 @@ import './Home.css';
 const UserLogin = ({history}) => {
 	const [view, setview] = useState('Login')
     return(
-        <div className="container-fluid">
+        <div className="container-fluid hero-backgrond">
 			<div className="row pt-5">
 				<div className="pt-5 col-md-6 offset-md-3 col-12">
 					<div className="shadow-sm p-3 mb-5 bg-white rounded">

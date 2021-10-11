@@ -7,8 +7,6 @@ const Container = styled.div`
     padding: 20px;
     justify-content: space-between;
 `
-
-console.log(categories);
 const Catagories = () =>{
     return(
         <Container >

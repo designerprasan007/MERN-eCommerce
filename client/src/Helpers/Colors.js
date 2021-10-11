@@ -3,6 +3,5 @@ export const Colors = [
 		  { value: 'White', label: 'White'},
 		  { value: 'Red', label: 'Red'},
 		  { value: 'Yellow', label: 'Yellow'},
-		  { value: 'Orrange', label: 'Orrange'},
-		  { value: 'Silver', label: 'Silver'}
+		  { value: 'Orange', label: 'Orange'},
 		]

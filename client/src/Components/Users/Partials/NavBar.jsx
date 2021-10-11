@@ -55,6 +55,7 @@ const MenuItem = styled.div`
     cursor:pointer;
     margin-left:25px
 `
+const LinkButtons = styled.a``
 const NavBar = () =>{
     return(
         <Container>
@@ -68,8 +69,12 @@ const NavBar = () =>{
                 </Left>
                 <Center><Logo>E-bay.</Logo></Center>
                 <Right>
-                    <MenuItem>Register</MenuItem>
-                    <MenuItem>Login</MenuItem>
+                    <MenuItem>
+                        <LinkButtons href="/userpage">Register</LinkButtons>
+                    </MenuItem>
+                    <MenuItem>
+                        <LinkButtons href="/userpage">Login</LinkButtons>
+                    </MenuItem>
                     <MenuItem>
                         <Badge badgeContent={4} color="primary">
                             <ShoppingCartOutlined />
